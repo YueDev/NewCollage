@@ -1,6 +1,7 @@
 package com.example.newcollage.repository
 
 import com.example.newcollage.R
+import com.example.newcollage.bean.CollageItem
 
 class ImageRepository {
 

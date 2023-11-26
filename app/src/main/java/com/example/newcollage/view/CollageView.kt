@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import android.view.View
+import com.example.newcollage.bean.CollageItem
 import com.example.newcollage.repository.ImageRepository
 import com.example.newcollage.util.loadBitmapSync
 import com.example.newcollage.util.pointInImage
@@ -22,8 +23,9 @@ class CollageView: View {
         isFilterBitmap = true
     }
 
-    private var imageBitmap: Bitmap? = null
-    private val imageMatrix = Matrix()
+    private val items = mutableListOf<CollageItem>()
+
+    private var selectItem: CollageItem? = null
 
     // 手势识别器
     private val gestureDetector = object : MyGestureDetector(context) {
@@ -34,21 +36,20 @@ class CollageView: View {
             distanceX: Float,
             distanceY: Float
         ): Boolean {
-            imageMatrix.postTranslate(-distanceX, -distanceY)
-            invalidate()
-            return true
+            return selectItem?.let {
+                it.matrix.postTranslate(-distanceX, -distanceY)
+                invalidate()
+                true
+            } ?: false
         }
 
 
         override fun onScale(detector: ScaleGestureDetector): Boolean {
-            imageMatrix.postScale(
-                detector.scaleFactor,
-                detector.scaleFactor,
-                detector.focusX,
-                detector.focusY
-            )
-            invalidate()
-            return true
+            return selectItem?.let {
+                it.matrix.postScale(detector.scaleFactor, detector.scaleFactor, detector.focusX, detector.focusY)
+                invalidate()
+                true
+            } ?: false
         }
 
         override fun onRotation(
@@ -58,8 +59,10 @@ class CollageView: View {
             focusX: Float,
             focusY: Float
         ) {
-            imageMatrix.postRotate(currentDegree - prevDegree, focusX, focusY)
-            invalidate()
+            selectItem?.let {
+                it.matrix.postRotate(currentDegree - prevDegree, focusX, focusY)
+                invalidate()
+            }
         }
     }
 
@@ -74,24 +77,30 @@ class CollageView: View {
     )
 
     init {
-        val imageResId = ImageRepository.imageResIds.random()
-        imageBitmap = BitmapFactory.decodeResource(resources, imageResId)
+
+    }
+
+
+    fun setData(items:List<CollageItem>) {
+        this.items.clear()
+        this.items.addAll(items)
+        invalidate()
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        imageBitmap?.let {
-            canvas.drawBitmap(it, imageMatrix, imagePaint)
+        items.forEach {
+            canvas.drawBitmap(it.bitmap, it.matrix, imagePaint)
         }
     }
 
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-        event ?: return false
-        imageBitmap?.also {
-            if (event.action == MotionEvent.ACTION_DOWN && !pointInImage(event.x, event.y, it, imageMatrix)) {
-                return false
-            }
-        } ?: return false
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        if (event.action == MotionEvent.ACTION_UP || event.action == MotionEvent.ACTION_CANCEL) {
+            selectItem = null
+        } else if (event.action == MotionEvent.ACTION_DOWN) {
+            selectItem = items.lastOrNull { pointInImage(event.x, event.y, it.bitmap, it.matrix) }
+            if (selectItem == null) return false
+        }
         return gestureDetector.onTouchEvent(event)
     }
 
