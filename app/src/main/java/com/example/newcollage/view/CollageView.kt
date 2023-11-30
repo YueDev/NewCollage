@@ -70,9 +70,6 @@ class CollageView: View {
         defStyleAttr
     )
 
-    init {
-
-    }
 
 
     fun setData(items:List<CollageItem>) {
