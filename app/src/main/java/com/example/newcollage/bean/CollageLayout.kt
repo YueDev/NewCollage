@@ -5,16 +5,16 @@ import android.graphics.Path
 
 // collage layout布局
 // 默认画布是1000 * 1000 int类型 不要小数
-data class CollageLayoutItem(
+data class CollageLayout(
     // item的名字
     val name: String,
+    // 原始四个坐标点
+    val leftOrigin: Float = 0f,
+    val topOrigin: Float = 0f,
+    val rightOrigin: Float = 0f,
+    val bottomOrigin: Float = 0f,
     // item的类型
     val type:Int = 0,
-    // 原始四个坐标点
-    val leftOrigin: Float,
-    val topOrigin: Float,
-    val rightOrigin: Float,
-    val bottomOrigin: Float,
     // 当前的四个坐标点 已应用到坐标的大小
     var left: Float = leftOrigin,
     var top: Float = topOrigin,
@@ -39,4 +39,6 @@ data class CollageLayoutItem(
     val topPaddingFactor:Float = 0.0f,
     val rightPaddingFactor:Float = 0.0f,
     val bottomPaddingFactor:Float = 0.0f,
+    //item的路径 根据上边的信息计算出来
+    val path: Path = Path()
 )

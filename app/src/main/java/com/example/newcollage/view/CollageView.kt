@@ -7,6 +7,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import android.view.View
+import androidx.core.graphics.withClip
 import com.example.newcollage.bean.CollageItem
 import com.example.newcollage.util.pointInImage
 
@@ -73,15 +74,40 @@ class CollageView: View {
 
 
     fun setData(items:List<CollageItem>) {
-        this.items.clear()
-        this.items.addAll(items)
-        invalidate()
+        post {
+            this.items.clear()
+            this.items.addAll(items)
+            resetItem()
+            invalidate()
+        }
+    }
+
+    private fun resetItem() {
+        val w = measuredWidth
+        val h = measuredHeight
+        items.forEach {
+            val layout = it.layout
+            layout.left = layout.leftOrigin * w / 1000.0f
+            layout.top = layout.topOrigin * h / 1000.0f
+            layout.right = layout.rightOrigin * w / 1000.0f
+            layout.bottom = layout.bottomOrigin * h / 1000.0f
+            val path = layout.path
+            layout.path.reset()
+            path.moveTo(layout.left, layout.top)
+            path.lineTo(layout.right, layout.top)
+            path.lineTo(layout.right, layout.bottom)
+            path.lineTo(layout.left, layout.bottom)
+            path.close()
+        }
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         items.forEach {
+            canvas.save()
+            canvas.clipPath(it.layout.path)
             canvas.drawBitmap(it.bitmap, it.matrix, imagePaint)
+            canvas.restore()
         }
     }
 
