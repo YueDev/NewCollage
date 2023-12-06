@@ -5,6 +5,5 @@ import android.graphics.Matrix
 
 data class CollageItem(
     val bitmap: Bitmap,
-    val layout: CollageLayout,
     val matrix: Matrix = Matrix(),
 )
