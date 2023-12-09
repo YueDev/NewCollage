@@ -13,7 +13,7 @@ class ImageRepository {
             R.drawable.test_4,
             R.drawable.test_5,
             R.drawable.test_6,
-            R.drawable.test_7
+            R.drawable.test_7,
             )
     }
 
