@@ -1,4 +1,3 @@
-@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
@@ -33,9 +32,19 @@ android {
         jvmTarget = "1.8"
     }
 
-    viewBinding {
-        enable = true
+//    viewBinding {
+//        enable = true
+//    }
+
+    buildFeatures {
+        compose = true
+        viewBinding = true
     }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.1"
+    }
+
 }
 
 dependencies {
@@ -47,4 +56,16 @@ dependencies {
 
     implementation(libs.glide)
     implementation(libs.permissionx)
+
+
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.activity.compose)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.ui.graphics)
+    implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.material3)
+
+    debugImplementation(libs.androidx.ui.tooling)
+
 }
