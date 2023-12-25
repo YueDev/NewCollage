@@ -24,4 +24,15 @@
         android:text="Compose"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/codeLabButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="CodeLab"
+        app:layout_constraintEnd_toEndOf="@+id/composeButton"
+        app:layout_constraintStart_toStartOf="@+id/composeButton"
+        app:layout_constraintTop_toBottomOf="@+id/composeButton" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

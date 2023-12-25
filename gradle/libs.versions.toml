@@ -30,6 +30,8 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 permissionx = { group = "com.guolindev.permissionx", name = "permissionx", version.ref = "permissionx" }
+androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 
 
 [plugins]

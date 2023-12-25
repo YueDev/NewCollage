@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">NewCollage</string>
+    <string name="title_activity_codelab">CodelabActivity</string>
 </resources>
