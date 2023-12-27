@@ -17,7 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -43,11 +43,7 @@ class ComposeActivity : ComponentActivity() {
         setContent {
             ComposeTheme {
                 Surface {
-                    LazyColumn {
-                        items(datas) {
-                            MessageCard(msg = it)
-                        }
-                    }
+                    MainScreen(datas)
                 }
             }
         }
@@ -56,7 +52,26 @@ class ComposeActivity : ComponentActivity() {
 
 
 @Composable
-fun MessageCard(msg: Message) {
+private fun MainScreen(messages: List<Message>) {
+
+    var state by remember {
+        mutableStateOf(messages)
+    }
+
+    LazyColumn {
+        itemsIndexed(state) { index, item ->
+            MessageCard(msg = item) {
+                val newList = state.toMutableList()
+                newList[index] = item.copy(isExpand = it)
+                state = newList
+            }
+        }
+    }
+}
+
+
+@Composable
+fun MessageCard(msg: Message, click: (Boolean) -> Unit) {
     Row(Modifier.padding(8.dp)) {
         Image(
             painter = painterResource(R.drawable.test_2),
@@ -71,9 +86,8 @@ fun MessageCard(msg: Message) {
 
         Spacer(modifier = Modifier.width(8.dp))
 
-        var isExpand by remember { mutableStateOf(false) }
         val surfaceColor by animateColorAsState(
-            targetValue = if (isExpand) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface,
+            targetValue = if (msg.isExpand) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface,
             label = "test "
         )
 
@@ -88,13 +102,14 @@ fun MessageCard(msg: Message) {
 
             Surface(
                 color = surfaceColor,
-                modifier = Modifier.animateContentSize()
-                    .clickable { isExpand = isExpand.not() },
+                modifier = Modifier
+                    .animateContentSize()
+                    .clickable { click.invoke(msg.isExpand.not()) },
                 shape = MaterialTheme.shapes.medium,
                 tonalElevation = 4.dp
             ) {
                 Text(
-                    maxLines = if (isExpand) Int.MAX_VALUE else 1,
+                    maxLines = if (msg.isExpand) Int.MAX_VALUE else 1,
                     text = msg.body,
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.padding(8.dp)
@@ -110,11 +125,7 @@ fun MessageCard(msg: Message) {
 fun PreviewCard() {
     ComposeTheme {
         Surface {
-            LazyColumn {
-                items(datas) {
-                    MessageCard(msg = it)
-                }
-            }
+            MainScreen(messages = datas)
         }
     }
 }
@@ -131,7 +142,7 @@ fun MessageCardPreviewNight() {
     PreviewCard()
 }
 
-data class Message(val author: String, val body: String)
+data class Message(val author: String, val body: String, val isExpand: Boolean = false)
 
 val datas = listOf(
     Message(
