@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
             val bitmap = BitmapFactory.decodeResource(resources, res)
             CollageItem(bitmap)
         }
+
         binding.collageView.setData(items)
     }
 
