@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.newcollage.bean.CollageItem
 import com.example.newcollage.compose.CodeLabActivity
 import com.example.newcollage.compose.ComposeActivity
+import com.example.newcollage.compose.MySootheActivity
 import com.example.newcollage.databinding.ActivityMainBinding
 import com.example.newcollage.repository.ImageRepository
 
@@ -27,6 +28,11 @@ class MainActivity : AppCompatActivity() {
 
         binding.codeLabButton.setOnClickListener {
             val intent = Intent(this, CodeLabActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.mySootheButton.setOnClickListener {
+            val intent = Intent(this, MySootheActivity::class.java)
             startActivity(intent)
         }
 
