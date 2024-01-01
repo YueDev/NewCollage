@@ -16,7 +16,7 @@
             android:name=".compose.MySootheActivity"
             android:exported="false"
             android:label="@string/title_activity_my_soothe"
-            android:theme="@style/Theme.NewCollage" />
+            android:theme="@style/Theme.MySoothe" />
         <activity
             android:name=".compose.CodeLabActivity"
             android:exported="false"
