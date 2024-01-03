@@ -20,4 +20,5 @@
     <string name="bottom_navigation_home">Home</string>
     <string name="bottom_navigation_profile">Profile</string>
     <string name="placeholder_search">Search</string>
+    <string name="title_activity_state">StateActivity</string>
 </resources>

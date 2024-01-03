@@ -45,4 +45,14 @@
         app:layout_constraintEnd_toEndOf="@+id/codeLabButton"
         app:layout_constraintTop_toBottomOf="@+id/codeLabButton" />
 
+    <Button
+        android:id="@+id/stateButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="State"
+        app:layout_constraintEnd_toEndOf="@+id/mySootheButton"
+        app:layout_constraintStart_toStartOf="@+id/mySootheButton"
+        app:layout_constraintTop_toBottomOf="@+id/mySootheButton" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
