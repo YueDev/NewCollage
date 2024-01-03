@@ -7,26 +7,35 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Button
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.newcollage.compose.ui.theme.ComposeTheme
 
 
@@ -38,8 +47,7 @@ class StateActivity : ComponentActivity() {
         setContent {
             ComposeTheme {
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
                     WellnessScreen()
                 }
@@ -49,20 +57,18 @@ class StateActivity : ComponentActivity() {
 }
 
 @Composable
-fun WellnessScreen(modifier: Modifier = Modifier) {
-    StatefulCounter(modifier)
-}
+fun WellnessScreen(
+    modifier: Modifier = Modifier,
+    wellnessViewModel: WellnessViewModel = viewModel()
+) {
+    Column(modifier = modifier) {
+        StatefulCounter()
 
-@Composable
-fun WaterCounter(modifier: Modifier = Modifier) {
-    Column(modifier = modifier.padding(16.dp)) {
-        var count by rememberSaveable { mutableIntStateOf(0) }
-        if (count > 0) {
-            Text("You've had $count glasses.")
-        }
-        Button(onClick = { count++ }, Modifier.padding(top = 8.dp), enabled = count < 8) {
-            Text("Add one")
-        }
+        WellnessTasksList(
+            list = wellnessViewModel.tasks,
+            onClose = wellnessViewModel::remove,
+            onCheckedChange = wellnessViewModel::changeTaksedChecked
+        )
     }
 }
 
@@ -93,54 +99,101 @@ fun StatefulCounter(modifier: Modifier = Modifier) {
 
 }
 
+
+//无状态的WellnessTaskItem
 @Composable
-fun WellnessTaskItem(taskName: String, onClose: () -> Unit, modifier: Modifier = Modifier) {
+fun WellnessTaskItem(
+    taskName: String,
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    onClose: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier
+        verticalAlignment = Alignment.CenterVertically, modifier = modifier
     ) {
         Text(
             modifier = Modifier
                 .weight(1f)
-                .padding(start = 16.dp),
-            text = taskName
+                .padding(start = 16.dp), text = taskName
         )
 
+        Checkbox(checked = checked, onCheckedChange = onCheckedChange)
+
         IconButton(onClick = onClose) {
-            Icon(
-                Icons.Default.Close,
+            Icon(Icons.Default.Close,
                 contentDescription = "Close",
                 Modifier.clickable { onClose() })
         }
     }
 }
 
+
+@Composable
+fun WellnessTasksList(
+    modifier: Modifier = Modifier,
+    onClose: (WellnessTask) -> Unit,
+    onCheckedChange: (WellnessTask, Boolean) -> Unit,
+    list: List<WellnessTask>
+) {
+    LazyColumn(
+        state = rememberLazyListState(),
+        modifier = modifier
+    ) {
+        items(list) { task ->
+            WellnessTaskItem(
+                taskName = task.label,
+                checked = task.checked,
+                onCheckedChange = { newChecked ->
+                    onCheckedChange(task, newChecked)
+                },
+                onClose = { onClose(task) }
+            )
+        }
+    }
+}
+
+
 @Preview(showBackground = true)
 @Composable
-fun WellnessScreenCounter() {
+fun WellnessScreenPreview() {
     ComposeTheme {
         WellnessScreen()
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun WellnessTaskItemPreview() {
-    WellnessTaskItem(
-        taskName = "This is a task.",
-        onClose = {},
-        modifier = Modifier.fillMaxWidth()
-    )
+
+data class WellnessTask(
+    val id: Int,
+    val label: String,
+    val initChecked: Boolean = false
+) {
+    //利用委托属性来管理checked
+    //相当与定义了一个val checked: MutableState<Boolean> = mutableStateOf(false)
+    //在data里利用一个MutableState来管理状态，比新建一个data，从list里替换要高效很多.
+    var checked by mutableStateOf(initChecked)
 }
 
-@Preview(showBackground = true)
-@Composable
-fun StatelessCounterPreview() {
-    StatelessCounter(count = 0, onCountChanged = {})
+
+class WellnessViewModel : ViewModel() {
+    private val _tasks =
+        getWellnessTasks().toMutableStateList()
+    val tasks: List<WellnessTask>
+        get() = _tasks
+
+
+    fun remove(item: WellnessTask) {
+        _tasks.remove(item)
+    }
+
+    fun changeTaksedChecked(item: WellnessTask, checked: Boolean) {
+        _tasks.find { it.id == item.id }?.let {
+            it.checked = checked
+        }
+    }
+
+    private fun getWellnessTasks() =
+        List(30) { i -> WellnessTask(i, "Task # $i") }
+
 }
 
-@Preview(showBackground = true)
-@Composable
-fun StatefulCounterPreview() {
-    StatefulCounter()
-}
