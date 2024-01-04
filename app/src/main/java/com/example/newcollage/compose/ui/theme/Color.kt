@@ -62,3 +62,14 @@ val md_theme_dark_onSurface = Color(0xFFE6E1E0)
 val md_theme_dark_surfaceVariant = Color(0xFF494644)
 val md_theme_dark_onSurfaceVariant = Color(0xFFE6E1E0)
 val md_theme_dark_outline = Color(0xFF94908D)
+
+//animation
+
+val Amber600 = Color(0xFFFFB300)
+
+val Melon = Color(0xFFfec5bb)
+val PaleDogwood = Color(0xFFfcd5ce)
+val Seashell = Color(0xFFf8edeb)
+val Peach = Color(0xFFfec89a)
+val Green = Color(0xFFd8e2dc)
+val GreenLight = Color(0xFFEBF1EE)
