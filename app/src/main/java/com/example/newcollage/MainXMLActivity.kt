@@ -12,7 +12,9 @@ import com.example.newcollage.compose.StateActivity
 import com.example.newcollage.databinding.ActivityMainBinding
 import com.example.newcollage.repository.ImageRepository
 
-class MainActivity : AppCompatActivity() {
+
+/// no used, used compose activity instead.
+class MainXMLActivity : AppCompatActivity() {
 
     private val binding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
