@@ -29,9 +29,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             ComposeTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    MainHome(modifier = Modifier
-                        .padding(innerPadding)
-                        .fillMaxSize())
+                    MainHome(
+                        modifier = Modifier
+                            .padding(innerPadding)
+                            .fillMaxSize()
+                    )
                 }
             }
         }
