@@ -61,6 +61,7 @@ fun MainHome(modifier: Modifier = Modifier) {
     }
 }
 
+
 val buttonDataList = listOf(
     "Compose" to ComposeActivity::class.java,
     "CodeLab" to CodeLabActivity::class.java,
