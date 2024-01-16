@@ -68,6 +68,7 @@ val buttonDataList = listOf(
     "MySoothe" to MySootheActivity::class.java,
     "State" to StateActivity::class.java,
     "Animation" to AnimationActivity::class.java,
+    "TestLayout" to TestLayoutActivity::class.java,
 )
 
 @Preview(showBackground = true)
