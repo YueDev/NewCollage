@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.newcollage.view.FlowActivity
 import com.example.newcollage.compose.ui.theme.ComposeTheme
+import com.example.newcollage.view.hilt.ui.HiltActivity
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,6 +72,7 @@ val buttonDataList = listOf(
     "Animation" to AnimationActivity::class.java,
     "TestLayout" to TestLayoutActivity::class.java,
     "Flow(XML)" to FlowActivity::class.java,
+    "Hilt(XML)" to HiltActivity::class.java,
 )
 
 @Preview(showBackground = true)
