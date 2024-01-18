@@ -60,7 +60,7 @@ class FlowViewModel: ViewModel() {
     private val _stateFlow = MutableStateFlow("Init")
     val stateFlow = _stateFlow as StateFlow<String>
 
-    var num = 0
+    private var num = 0
 
     fun requestNet() {
          viewModelScope.launch {
