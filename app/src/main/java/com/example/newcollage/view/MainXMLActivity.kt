@@ -1,4 +1,4 @@
-package com.example.newcollage
+package com.example.newcollage.view
 
 import android.content.Intent
 import android.graphics.BitmapFactory

@@ -1,4 +1,4 @@
-package com.example.newcollage.view
+package com.example.newcollage.view.view
 
 import android.content.Context
 import android.view.GestureDetector

@@ -1,4 +1,4 @@
-package com.example.newcollage.view
+package com.example.newcollage.view.view
 
 import android.content.Context
 import android.graphics.Canvas
@@ -10,8 +10,6 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import android.view.View
-import androidx.core.graphics.toColorInt
-import androidx.core.graphics.withClip
 import com.example.newcollage.bean.CollageItem
 import com.example.newcollage.util.pointInImage
 
