@@ -15,7 +15,7 @@ permissionx = "1.7.1"
 material3WindowSizeClass = "1.1.2"
 activity = "1.8.2"
 
-hilt = "2.44"
+hilt = "2.50"
 room = "2.6.1"
 
 [libraries]

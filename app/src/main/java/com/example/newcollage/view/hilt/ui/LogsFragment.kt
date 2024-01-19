@@ -17,6 +17,7 @@
 package com.example.newcollage.view.hilt.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,7 +35,8 @@ import javax.inject.Inject
 class LogsFragment : Fragment() {
 
 //    @Inject lateinit var logger: LoggerLocalDataSource
-    @Inject lateinit var dateFormatter: DateFormatter
+    @Inject lateinit var dateFormatter1: DateFormatter
+    @Inject lateinit var dateFormatter2: DateFormatter
 
     private lateinit var recyclerView: RecyclerView
 
@@ -50,7 +52,8 @@ class LogsFragment : Fragment() {
         recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view).apply {
             setHasFixedSize(true)
         }
-        dateFormatter.formatDate(11)
+        Log.d("YUEDEVTAG", "dateFormatter1: $dateFormatter1")
+        Log.d("YUEDEVTAG", "dateFormatter2: $dateFormatter2")
     }
 
 //    override fun onAttach(context: Context) {
