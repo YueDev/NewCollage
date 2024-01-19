@@ -22,12 +22,14 @@ import com.example.newcollage.R
 import com.example.newcollage.view.hilt.LogApplication
 import com.example.newcollage.view.hilt.navigator.AppNavigator
 import com.example.newcollage.view.hilt.navigator.Screens
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * Main activity of the application.
  *
  * Container for the Buttons & Logs fragments. This activity simply tracks clicks on buttons.
  */
+@AndroidEntryPoint
 class HiltActivity : AppCompatActivity() {
 
     private lateinit var navigator: AppNavigator

@@ -18,13 +18,16 @@ package com.example.newcollage.view.hilt.data
 
 import android.os.Handler
 import android.os.Looper
+import dagger.hilt.android.scopes.ActivityScoped
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * Data manager class that handles data manipulation between the database and the UI.
  */
-class LoggerLocalDataSource(private val logDao: LogDao) {
+class LoggerLocalDataSource constructor(private val logDao: LogDao) {
 
     private val executorService: ExecutorService = Executors.newFixedThreadPool(4)
     private val mainThreadHandler by lazy {

@@ -55,9 +55,7 @@ android {
     }
 }
 
-kapt {
-    correctErrorTypes = true
-}
+
 
 dependencies {
 
@@ -93,3 +91,6 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 }
 
+kapt {
+    correctErrorTypes = true
+}

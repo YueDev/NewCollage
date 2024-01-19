@@ -135,7 +135,7 @@ fun Greeting(name: String) {
     }
 }
 
-@Preview(showBackground = true, widthDp = 320, heightDp = 640)
+@Preview(showBackground = true, widthDp = 360, heightDp = 840)
 @Composable
 fun OnboardingPreview() {
     ComposeTheme {
@@ -143,7 +143,7 @@ fun OnboardingPreview() {
     }
 }
 
-@Preview(showBackground = true, widthDp = 320, heightDp = 640)
+@Preview(showBackground = true, widthDp = 360, heightDp = 840)
 @Composable
 fun GreetingPreview() {
     ComposeTheme {

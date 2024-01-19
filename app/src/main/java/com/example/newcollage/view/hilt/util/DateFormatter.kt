@@ -19,11 +19,13 @@ package com.example.newcollage.view.hilt.util
 import android.annotation.SuppressLint
 import java.text.SimpleDateFormat
 import java.util.Date
+import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * String formatter for the log dates.
  */
-class DateFormatter {
+class DateFormatter @Inject constructor() {
 
     @SuppressLint("SimpleDateFormat")
     private val formatter = SimpleDateFormat("d MMM yyyy HH:mm:ss")
