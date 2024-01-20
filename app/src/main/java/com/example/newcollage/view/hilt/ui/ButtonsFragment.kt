@@ -18,6 +18,7 @@ package com.example.newcollage.view.hilt.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,10 +29,14 @@ import com.example.newcollage.view.hilt.data.LoggerLocalDataSource
 import com.example.newcollage.R
 import com.example.newcollage.view.hilt.navigator.AppNavigator
 import com.example.newcollage.view.hilt.navigator.Screens
+import com.example.newcollage.view.hilt.util.DateFormatter
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 /**
  * Fragment that displays buttons whose interactions are recorded.
  */
+@AndroidEntryPoint
 class ButtonsFragment : Fragment() {
 
     private lateinit var logger: LoggerLocalDataSource
@@ -52,11 +57,11 @@ class ButtonsFragment : Fragment() {
     }
 
     private fun populateFields(context: Context) {
-        logger = (context.applicationContext as LogApplication).
-            serviceLocator.loggerLocalDataSource
+        logger = (context.applicationContext as LogApplication).serviceLocator.loggerLocalDataSource
 
-        navigator = (context.applicationContext as LogApplication).
-            serviceLocator.provideNavigator(requireActivity())
+        navigator = (context.applicationContext as LogApplication).serviceLocator.provideNavigator(
+            requireActivity()
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

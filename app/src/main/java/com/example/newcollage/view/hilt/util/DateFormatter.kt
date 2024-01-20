@@ -17,6 +17,8 @@
 package com.example.newcollage.view.hilt.util
 
 import android.annotation.SuppressLint
+import android.util.Log
+import dagger.hilt.android.scopes.ActivityScoped
 import java.text.SimpleDateFormat
 import java.util.Date
 import javax.inject.Inject
@@ -33,3 +35,4 @@ class DateFormatter @Inject constructor() {
         return formatter.format(Date(timestamp))
     }
 }
+
