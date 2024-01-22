@@ -17,15 +17,12 @@
 package com.example.newcollage.view.hilt.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.newcollage.R
 import com.example.newcollage.view.hilt.LogApplication
 import com.example.newcollage.view.hilt.navigator.AppNavigator
 import com.example.newcollage.view.hilt.navigator.Screens
-import com.example.newcollage.view.hilt.util.DateFormatter
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 /**
  * Main activity of the application.
