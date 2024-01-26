@@ -17,7 +17,6 @@
 package com.example.newcollage.view.hilt.ui
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +25,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newcollage.R
+import com.example.newcollage.view.hilt.data.AppDatabase
 import com.example.newcollage.view.hilt.data.Log
 import com.example.newcollage.view.hilt.data.LoggerLocalDataSource
 import com.example.newcollage.view.hilt.util.DateFormatter
@@ -38,6 +38,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class LogsFragment : Fragment() {
 
+    @Inject
     lateinit var logger: LoggerLocalDataSource
 
     @Inject
@@ -57,13 +58,7 @@ class LogsFragment : Fragment() {
         recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view).apply {
             setHasFixedSize(true)
         }
-
     }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-    }
-
 
     override fun onResume() {
         super.onResume()

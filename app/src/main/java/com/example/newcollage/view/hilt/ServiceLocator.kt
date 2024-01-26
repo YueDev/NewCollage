@@ -26,15 +26,6 @@ import com.example.newcollage.view.hilt.navigator.AppNavigatorImpl
 
 class ServiceLocator(applicationContext: Context) {
 
-    private val logsDatabase = Room.databaseBuilder(
-        applicationContext,
-        AppDatabase::class.java,
-        "logging.db"
-    ).build()
-
-    val loggerLocalDataSource = LoggerLocalDataSource(logsDatabase.logDao())
-
-
     fun provideNavigator(activity: FragmentActivity): AppNavigator {
         return AppNavigatorImpl(activity)
     }

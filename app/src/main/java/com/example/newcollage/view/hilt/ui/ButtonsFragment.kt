@@ -39,7 +39,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ButtonsFragment : Fragment() {
 
-    private lateinit var logger: LoggerLocalDataSource
+    @Inject lateinit var logger: LoggerLocalDataSource
     private lateinit var navigator: AppNavigator
 
     override fun onCreateView(
@@ -57,8 +57,6 @@ class ButtonsFragment : Fragment() {
     }
 
     private fun populateFields(context: Context) {
-        logger = (context.applicationContext as LogApplication).serviceLocator.loggerLocalDataSource
-
         navigator = (context.applicationContext as LogApplication).serviceLocator.provideNavigator(
             requireActivity()
         )

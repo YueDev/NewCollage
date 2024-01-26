@@ -20,11 +20,13 @@ import androidx.fragment.app.FragmentActivity
 import com.example.newcollage.R
 import com.example.newcollage.view.hilt.ui.ButtonsFragment
 import com.example.newcollage.view.hilt.ui.LogsFragment
+import javax.inject.Inject
 
 /**
  * Navigator implementation.
  */
-class AppNavigatorImpl(private val activity: FragmentActivity) : AppNavigator {
+
+class AppNavigatorImpl @Inject constructor(private val activity: FragmentActivity) : AppNavigator {
 
     override fun navigateTo(screen: Screens) {
         val fragment = when (screen) {
