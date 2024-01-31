@@ -25,7 +25,6 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newcollage.R
-import com.example.newcollage.view.hilt.data.AppDatabase
 import com.example.newcollage.view.hilt.data.Log
 import com.example.newcollage.view.hilt.data.LoggerLocalDataSource
 import com.example.newcollage.view.hilt.util.DateFormatter
