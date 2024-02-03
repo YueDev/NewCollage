@@ -42,6 +42,7 @@ fun ComposeTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
+    showStatusBarInEdgeToEdgeMode: Boolean = true,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
@@ -54,7 +55,7 @@ fun ComposeTheme(
         else -> LightColorScheme
     }
     val view = LocalView.current
-    if (!view.isInEditMode) {
+    if (!view.isInEditMode && showStatusBarInEdgeToEdgeMode) {
         SideEffect {
             val window = (view.context as Activity).window
             window.statusBarColor = colorScheme.primary.toArgb()

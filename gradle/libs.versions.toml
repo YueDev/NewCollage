@@ -11,6 +11,7 @@ activityCompose = "1.8.2"
 composeBom = "2024.01.00"
 
 glide = "4.16.0"
+glide-compose = "1.0.0-beta01"
 permissionx = "1.7.1"
 material3WindowSizeClass = "1.1.2"
 activity = "1.8.2"
@@ -37,6 +38,8 @@ androidx-material3-size = { group = "androidx.compose.material3", name = "materi
 
 
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+glide-compose = { group = "com.github.bumptech.glide", name = "compose", version.ref = "glide-compose" }
+
 permissionx = { group = "com.guolindev.permissionx", name = "permissionx", version.ref = "permissionx" }
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }

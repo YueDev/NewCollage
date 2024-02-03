@@ -1,6 +1,7 @@
 package com.example.newcollage.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -13,10 +14,14 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewModelScope
 import com.example.newcollage.databinding.ActivityFlowBinding
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlin.random.Random
@@ -26,8 +31,6 @@ class FlowActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivityFlowBinding.inflate(layoutInflater)
     }
-
-    private val viewModel by viewModels<FlowViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,39 +42,22 @@ class FlowActivity : AppCompatActivity() {
             insets
         }
 
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.stateFlow.collectLatest {
-                    binding.textView.text = it
-                }
+
+        MainScope().launch {
+            flow.collect {
+                binding.textView.text = it.toString()
             }
         }
 
-        binding.button.setOnClickListener {
-            viewModel.requestNet()
+
+    }
+
+    private val flow = flow {
+        (0 .. 10).forEach {
+            delay(500)
+            emit(it)
+            Log.d("YUEDEVTAG", "emit: $it")
         }
-
     }
 
-}
-
-class FlowViewModel: ViewModel() {
-
-    private val _stateFlow = MutableStateFlow("Init")
-    val stateFlow = _stateFlow as StateFlow<String>
-
-    private var num = 0
-
-    fun requestNet() {
-         viewModelScope.launch {
-             val message = getString()
-             _stateFlow.value = message
-         }
-    }
-
-    private suspend fun getString() = withContext(Dispatchers.IO) {
-        val myNum = num++
-        delay(Random.nextLong(1000, 3000))
-        "Message from Internet:${myNum}"
-    }
 }
