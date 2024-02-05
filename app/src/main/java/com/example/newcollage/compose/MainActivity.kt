@@ -1,10 +1,12 @@
 package com.example.newcollage.compose
 
+import android.Manifest
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,14 +22,32 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.newcollage.view.FlowActivity
 import com.example.newcollage.compose.ui.theme.ComposeTheme
+import com.example.newcollage.view.FlowActivity
 import com.example.newcollage.view.hilt.ui.HiltActivity
+import com.permissionx.guolindev.PermissionX
+import com.permissionx.guolindev.callback.RequestCallback
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
+
+    private val permissions =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+            Manifest.permission.READ_MEDIA_IMAGES
+        else
+            Manifest.permission.READ_EXTERNAL_STORAGE
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        PermissionX.init(this)
+            .permissions(permissions)
+            .request { allGranted, _, _ ->
+                if (allGranted) setContent()
+            }
+    }
+
+    private fun setContent() {
         setContent {
             ComposeTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
@@ -42,10 +62,10 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+
 @Composable
 fun MainHome(modifier: Modifier = Modifier) {
     val context = LocalContext.current
-
     LazyColumn(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp),

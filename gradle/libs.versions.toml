@@ -36,7 +36,6 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-material3-size = { group = "androidx.compose.material3", name = "material3-window-size-class", version.ref = "material3WindowSizeClass" }
 
-
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 glide-compose = { group = "com.github.bumptech.glide", name = "compose", version.ref = "glide-compose" }
 

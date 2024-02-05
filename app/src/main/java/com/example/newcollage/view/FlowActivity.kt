@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewModelScope
 import com.example.newcollage.databinding.ActivityFlowBinding
+import com.example.newcollage.repository.GalleryRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
@@ -32,6 +33,8 @@ class FlowActivity : AppCompatActivity() {
         ActivityFlowBinding.inflate(layoutInflater)
     }
 
+    private val repository = GalleryRepository()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -43,21 +46,17 @@ class FlowActivity : AppCompatActivity() {
         }
 
 
-        MainScope().launch {
-            flow.collect {
-                binding.textView.text = it.toString()
+        lifecycleScope.launch {
+            repository.loadMediaData(this@FlowActivity).flowOn(Dispatchers.IO).collect {
+                Log.d("YUEDEVTAG", "=====================")
+                Log.d("YUEDEVTAG", "uris count: ${it.size}")
+                Log.d("YUEDEVTAG", it[0].toString())
+                Log.d("YUEDEVTAG", it[1].toString())
+                Log.d("YUEDEVTAG", it[1].toString())
             }
         }
 
-
     }
 
-    private val flow = flow {
-        (0 .. 10).forEach {
-            delay(500)
-            emit(it)
-            Log.d("YUEDEVTAG", "emit: $it")
-        }
-    }
 
 }
