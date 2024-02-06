@@ -50,9 +50,6 @@ class FlowActivity : AppCompatActivity() {
             repository.loadMediaData(this@FlowActivity).flowOn(Dispatchers.IO).collect {
                 Log.d("YUEDEVTAG", "=====================")
                 Log.d("YUEDEVTAG", "uris count: ${it.size}")
-                Log.d("YUEDEVTAG", it[0].toString())
-                Log.d("YUEDEVTAG", it[1].toString())
-                Log.d("YUEDEVTAG", it[1].toString())
             }
         }
 
