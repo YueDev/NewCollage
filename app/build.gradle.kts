@@ -66,6 +66,7 @@ dependencies {
 
     implementation(libs.glide)
     implementation(libs.glide.compose)
+    implementation(libs.coil.compose)
     implementation(libs.permissionx)
 
     implementation(libs.androidx.lifecycle.runtime.ktx)
