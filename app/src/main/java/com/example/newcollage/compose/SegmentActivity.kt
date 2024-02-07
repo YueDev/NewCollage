@@ -56,7 +56,8 @@ class SegmentActivity : ComponentActivity() {
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-private fun SegmentScreen(uri: Uri, modifier: Modifier = Modifier) {
+private fun SegmentScreen(uri: Uri, modifier: Modifier = Modifier, viewModel: SegmentViewModel = viewModel()) {
+
     GlideImage(model = uri, contentDescription = null, modifier = modifier)
 }
 

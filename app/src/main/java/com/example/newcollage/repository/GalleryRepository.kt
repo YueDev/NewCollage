@@ -41,7 +41,6 @@ class GalleryRepository {
                 super.onChange(selfChange)
                 launch {
                     trySend(query(contentResolver))
-                    Log.d("YUEDEVTAG", "trySend2")
                 }
             }
         }
@@ -53,11 +52,9 @@ class GalleryRepository {
         )
 
         trySend(query(contentResolver))
-        Log.d("YUEDEVTAG", "trySend")
 
         awaitClose {
             contentResolver.unregisterContentObserver(contentObserver)
-            Log.d("YUEDEVTAG", "close")
         }
     }
 
