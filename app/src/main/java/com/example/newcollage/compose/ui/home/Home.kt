@@ -16,19 +16,13 @@
 
 package com.example.newcollage.compose.ui.home
 
-import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.FloatAnimationSpec
-import androidx.compose.animation.core.FloatTweenSpec
-import androidx.compose.animation.core.KeyframesSpec
 import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDp
@@ -52,16 +46,12 @@ import androidx.compose.foundation.gestures.horizontalDrag
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.WindowInsetsSides.Companion.Horizontal
-import androidx.compose.foundation.layout.WindowInsetsSides.Companion.Top
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
-import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -71,7 +61,6 @@ import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.windowInsetsTopHeight
@@ -103,7 +92,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -131,10 +119,9 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.constraintlayout.motion.widget.KeyFrames
 import com.example.newcollage.R
 import com.example.newcollage.compose.ui.theme.Amber600
-import com.example.newcollage.compose.ui.theme.ComposeTheme
+import com.example.newcollage.compose.ui.theme.NewCollageTheme
 import com.example.newcollage.compose.ui.theme.Green
 import com.example.newcollage.compose.ui.theme.GreenLight
 import com.example.newcollage.compose.ui.theme.PaleDogwood
@@ -761,7 +748,7 @@ private fun Modifier.swipeToDismiss(
 @Preview
 @Composable
 private fun PreviewHomeTabBar() {
-    ComposeTheme {
+    NewCollageTheme {
         HomeTabBar(
             backgroundColor = White,
             tabPage = TabPage.Home,
@@ -773,7 +760,7 @@ private fun PreviewHomeTabBar() {
 @Preview
 @Composable
 private fun PreviewHome() {
-    ComposeTheme {
+    NewCollageTheme {
         Home()
     }
 }

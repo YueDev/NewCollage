@@ -1,7 +1,6 @@
 package com.example.newcollage.compose
 
 import android.os.Bundle
-import android.os.Handler
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.clickable
@@ -34,7 +33,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.newcollage.compose.ui.theme.ComposeTheme
+import com.example.newcollage.compose.ui.theme.NewCollageTheme
 
 
 // https://developer.android.com/codelabs/jetpack-compose-state#0
@@ -43,7 +42,7 @@ class StateActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 //        enableEdgeToEdge()
         setContent {
-            ComposeTheme {
+            NewCollageTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
@@ -160,7 +159,7 @@ fun WellnessTasksList(
 @Preview(showBackground = true)
 @Composable
 fun WellnessScreenPreview() {
-    ComposeTheme {
+    NewCollageTheme {
         WellnessScreen()
     }
 }

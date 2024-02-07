@@ -30,7 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.newcollage.compose.ui.theme.ComposeTheme
+import com.example.newcollage.compose.ui.theme.NewCollageTheme
 
 
 // https://developer.android.com/codelabs/jetpack-compose-basics?hl=zh-cn#0
@@ -39,7 +39,7 @@ class CodeLabActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            ComposeTheme {
+            NewCollageTheme {
                 MyApp(modifier = Modifier.fillMaxSize())
             }
         }
@@ -138,7 +138,7 @@ fun Greeting(name: String) {
 @Preview(showBackground = true, widthDp = 360, heightDp = 840)
 @Composable
 fun OnboardingPreview() {
-    ComposeTheme {
+    NewCollageTheme {
         OnboardingScreen(onContinueClicked = {})
     }
 }
@@ -146,7 +146,7 @@ fun OnboardingPreview() {
 @Preview(showBackground = true, widthDp = 360, heightDp = 840)
 @Composable
 fun GreetingPreview() {
-    ComposeTheme {
+    NewCollageTheme {
         Greetings()
     }
 }

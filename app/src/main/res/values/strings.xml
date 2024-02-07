@@ -59,4 +59,6 @@
     <string name="see_all_logs">SEE ALL LOGS</string>
     <string name="delete_logs">Delete Logs</string>
     <string name="title_activity_gallery">GalleryActivity</string>
+    <string name="title_activity_select_photo">SelectPhotoActivity</string>
+    <string name="title_activity_segment">SegmentActivity</string>
 </resources>

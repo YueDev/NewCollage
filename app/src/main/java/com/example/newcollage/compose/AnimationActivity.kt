@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.newcollage.compose.ui.home.Home
-import com.example.newcollage.compose.ui.theme.ComposeTheme
+import com.example.newcollage.compose.ui.theme.NewCollageTheme
 
 
 //https://developer.android.com/codelabs/jetpack-compose-animation
@@ -17,7 +17,7 @@ class AnimationActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 //        enableEdgeToEdge()
         setContent {
-            ComposeTheme {
+            NewCollageTheme {
                 AnimationScreen(modifier = Modifier.fillMaxSize())
             }
         }
@@ -32,7 +32,7 @@ fun AnimationScreen(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun AnimationScreenPreview() {
-    ComposeTheme {
+    NewCollageTheme {
         AnimationScreen()
     }
 }

@@ -22,11 +22,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.newcollage.compose.ui.theme.ComposeTheme
+import com.example.newcollage.compose.ui.theme.NewCollageTheme
 import com.example.newcollage.view.FlowActivity
 import com.example.newcollage.view.hilt.ui.HiltActivity
 import com.permissionx.guolindev.PermissionX
-import com.permissionx.guolindev.callback.RequestCallback
 
 class MainActivity : AppCompatActivity() {
 
@@ -49,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setContent() {
         setContent {
-            ComposeTheme {
+            NewCollageTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     MainHome(
                         modifier = Modifier
@@ -85,7 +84,7 @@ fun MainHome(modifier: Modifier = Modifier) {
 
 
 val buttonDataList = listOf(
-    "Gallery" to GalleryActivity::class.java,
+    "Gallery" to SelectPhotoActivity::class.java,
     "Compose" to ComposeActivity::class.java,
     "CodeLab" to CodeLabActivity::class.java,
     "MySoothe" to MySootheActivity::class.java,
@@ -99,7 +98,7 @@ val buttonDataList = listOf(
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview3() {
-    ComposeTheme {
+    NewCollageTheme {
         MainHome()
     }
 }

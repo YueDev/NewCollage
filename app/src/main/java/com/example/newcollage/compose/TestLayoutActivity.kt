@@ -36,7 +36,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.newcollage.R
-import com.example.newcollage.compose.ui.ui.theme.NewCollageTheme
+import com.example.newcollage.compose.ui.theme.NewCollageTheme
 
 class TestLayoutActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
