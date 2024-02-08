@@ -37,10 +37,6 @@ android {
         jvmTarget = "1.8"
     }
 
-//    viewBinding {
-//        enable = true
-//    }
-
     buildFeatures {
         compose = true
         viewBinding = true
@@ -52,6 +48,10 @@ android {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
+    }
+    // Do NOT compress tflite model files (need to call out to developers!)
+    androidResources {
+        noCompress += "tflite"
     }
 }
 
@@ -85,6 +85,8 @@ dependencies {
 
     implementation(libs.room.runtime)
     kapt(libs.room.compiler)
+
+    implementation(libs.segmentation.selfie)
 
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)

@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -29,6 +30,8 @@ import com.example.newcollage.compose.ui.theme.NewCollageTheme
 import com.example.newcollage.viewmodel.GalleryViewModel
 
 class SelectPhotoActivity : ComponentActivity() {
+    private val viewModel by viewModels<GalleryViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -36,7 +39,7 @@ class SelectPhotoActivity : ComponentActivity() {
             NewCollageTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     SelectPhotoScreen(
-                        modifier = Modifier.padding(innerPadding)
+                        modifier = Modifier.padding(innerPadding), viewModel = viewModel
                     )
                 }
             }
@@ -46,8 +49,7 @@ class SelectPhotoActivity : ComponentActivity() {
 
 @Composable
 private fun SelectPhotoScreen(
-    modifier: Modifier = Modifier,
-    viewModel: GalleryViewModel = viewModel()
+    modifier: Modifier = Modifier, viewModel: GalleryViewModel = viewModel()
 ) {
     val uris by viewModel.urisStateFlow.collectAsState()
     val context = LocalContext.current
@@ -60,9 +62,7 @@ private fun SelectPhotoScreen(
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun Gallery(
-    modifier: Modifier = Modifier,
-    uris: List<Uri>,
-    onSelectUri: (Uri) -> Unit
+    modifier: Modifier = Modifier, uris: List<Uri>, onSelectUri: (Uri) -> Unit
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
@@ -72,14 +72,12 @@ fun Gallery(
         modifier = modifier
     ) {
         items(uris) {
-            GlideImage(
-                model = it,
+            GlideImage(model = it,
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .aspectRatio(1.0f)
-                    .clickable { onSelectUri(it) }
-            )
+                    .clickable { onSelectUri(it) })
         }
     }
 }
