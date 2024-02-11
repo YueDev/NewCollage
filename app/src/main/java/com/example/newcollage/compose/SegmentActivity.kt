@@ -76,7 +76,10 @@ private fun SegmentScreen(
     Column(modifier = modifier) {
         when (result) {
             is SegmentResult.Failed -> {
-                Text(text = result.errorMessage ?: "unknown error", modifier = Modifier.fillMaxSize())
+                Text(
+                    text = result.errorMessage ?: "unknown error",
+                    modifier = Modifier.fillMaxSize()
+                )
             }
 
             is SegmentResult.Loading -> {
@@ -85,7 +88,11 @@ private fun SegmentScreen(
 
             is SegmentResult.Success -> {
                 val bitmap = result.data ?: return@Column
-                Image(bitmap = bitmap.asImageBitmap(), contentDescription = null, modifier = Modifier.fillMaxSize())
+                Image(
+                    bitmap = bitmap.asImageBitmap(),
+                    contentDescription = null,
+                    modifier = Modifier.fillMaxSize()
+                )
             }
         }
 
