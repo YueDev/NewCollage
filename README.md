@@ -1,2 +1,2 @@
 # Android Collage App
-A Collage.
+A Collage App.
