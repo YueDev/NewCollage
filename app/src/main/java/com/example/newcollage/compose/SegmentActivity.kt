@@ -2,6 +2,7 @@ package com.example.newcollage.compose
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -28,8 +29,6 @@ import com.example.newcollage.viewmodel.SegmentViewModel
 
 class SegmentActivity : ComponentActivity() {
 
-    private val viewModel by viewModels<SegmentViewModel>()
-
     companion object {
 
         private const val KEY_URI = "key_uri"
@@ -52,8 +51,8 @@ class SegmentActivity : ComponentActivity() {
                         uri,
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(innerPadding),
-                        viewModel = viewModel
+                            .padding(innerPadding)
+//                        viewModel = viewModel
                     )
                 }
             }
@@ -71,13 +70,17 @@ private fun SegmentScreen(
     val context = LocalContext.current
     viewModel.requestSegment(context, uri)
 
-    val result by viewModel.segmentResult.collectAsState()
+    val result = viewModel.segmentResult.collectAsState()
+    SegmentView(segmentResult = result.value, modifier = modifier)
+}
 
+@Composable
+private fun SegmentView(segmentResult: SegmentResult<Bitmap>, modifier: Modifier = Modifier) {
     Column(modifier = modifier) {
-        when (result) {
+        when (segmentResult) {
             is SegmentResult.Failed -> {
                 Text(
-                    text = result.errorMessage ?: "unknown error",
+                    text = segmentResult.errorMessage ?: "unknown error",
                     modifier = Modifier.fillMaxSize()
                 )
             }
@@ -87,7 +90,7 @@ private fun SegmentScreen(
             }
 
             is SegmentResult.Success -> {
-                val bitmap = result.data ?: return@Column
+                val bitmap = segmentResult.data ?: return@Column
                 Image(
                     bitmap = bitmap.asImageBitmap(),
                     contentDescription = null,
@@ -95,7 +98,5 @@ private fun SegmentScreen(
                 )
             }
         }
-
     }
 }
-

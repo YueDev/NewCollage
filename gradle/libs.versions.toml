@@ -8,13 +8,13 @@ constraintlayout = "2.1.4"
 
 lifecycleRuntimeKtx = "2.7.0"
 activityCompose = "1.8.2"
-composeBom = "2024.01.00"
+composeBom = "2024.02.00"
 
 glide = "4.16.0"
 glide-compose = "1.0.0-beta01"
 coil-compose = "2.5.0"
 permissionx = "1.7.1"
-material3WindowSizeClass = "1.1.2"
+material3WindowSizeClass = "1.2.0"
 activity = "1.8.2"
 
 hilt = "2.50"
