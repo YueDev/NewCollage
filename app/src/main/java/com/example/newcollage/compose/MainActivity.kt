@@ -91,6 +91,7 @@ val buttonDataList = listOf(
     "State" to StateActivity::class.java,
     "Animation" to AnimationActivity::class.java,
     "TestLayout" to TestLayoutActivity::class.java,
+    "Recomposition" to RecompositionActivity::class.java,
     "Flow(XML)" to FlowActivity::class.java,
     "Hilt(XML)" to HiltActivity::class.java,
 )

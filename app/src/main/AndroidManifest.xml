@@ -20,6 +20,11 @@
         android:theme="@style/Theme.NewCollage"
         tools:targetApi="31">
         <activity
+            android:name=".compose.RecompositionActivity"
+            android:exported="false"
+            android:label="@string/title_activity_recomposition"
+            android:theme="@style/Theme.NewCollage" />
+        <activity
             android:name=".compose.SegmentActivity"
             android:exported="false"
             android:label="@string/title_activity_segment"
