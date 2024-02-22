@@ -35,11 +35,6 @@
             android:label="@string/title_activity_select_photo"
             android:theme="@style/Theme.NewCollage" />
         <activity
-            android:name=".compose.GalleryActivity"
-            android:exported="false"
-            android:label="@string/title_activity_gallery"
-            android:theme="@style/Theme.NewCollage" />
-        <activity
             android:name=".view.FlowActivity"
             android:exported="false" />
         <activity
