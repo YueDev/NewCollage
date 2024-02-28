@@ -1,12 +1,9 @@
 package com.example.newcollage.viewmodel
 
-import android.app.Application
 import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
-import android.util.Log
-import androidx.compose.runtime.Stable
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.newcollage.repository.SegmentRepository
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +12,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 
-class SegmentViewModel(application: Application) : AndroidViewModel(application) {
+class SegmentViewModel : ViewModel() {
 
     // 简单弄一个标志当初始化了，写构造参数太麻烦了
     private var isInit = false

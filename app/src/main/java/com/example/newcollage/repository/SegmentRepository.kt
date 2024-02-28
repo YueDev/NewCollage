@@ -1,9 +1,7 @@
 package com.example.newcollage.repository
 
-import android.R.color
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import androidx.annotation.ColorInt
@@ -14,7 +12,6 @@ import com.example.newcollage.viewmodel.SegmentResult
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.segmentation.Segmentation
 import com.google.mlkit.vision.segmentation.selfie.SelfieSegmenterOptions
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.suspendCancellableCoroutine
 import java.nio.ByteBuffer
@@ -86,23 +83,23 @@ class SegmentRepository {
         @ColorInt val colors = IntArray(maskWidth * maskHeight)
         bitmap.getPixels(colors, 0, maskWidth, 0, 0, maskWidth, maskHeight)
         for (i in 0 until maskWidth * maskHeight) {
-            var backgroundLikelihood = byteBuffer.float
-            if (backgroundLikelihood < 0.2f) backgroundLikelihood = 0.0f
-            val alpha = (255 * backgroundLikelihood).toInt()
+            var currentBufferColor = byteBuffer.float
+//            if (currentBufferColor < 0.2f) currentBufferColor = 0.0f
+            //映射一下
+            val min = 0.2f
+            val max = 0.8f
+            currentBufferColor = if (currentBufferColor <= min) {
+                0f
+            } else if (currentBufferColor >= max) {
+                1.0f
+            } else {
+                //min max之间映射成0.0 - 1.0
+                (currentBufferColor - min) / (max - min)
+            }
+
+            val alpha = (255 * currentBufferColor).toInt()
             colors[i] = (colors[i] and 0x00FFFFFF) or (alpha shl 24)
-//            if (backgroundLikelihood > 0.9) {
-//                val alpha = 255
-//                colors[i] = (colors[i] and 0x00FFFFFF) or (alpha shl 24)
-//            } else if (backgroundLikelihood > 0.2) {
-//                // Linear interpolation to make sure when backgroundLikelihood is 0.2, the alpha is 0 and
-//                // when backgroundLikelihood is 0.9, the alpha is 128.
-//                // +0.5 to round the float value to the nearest int.
-//                val alpha = (182.9 * backgroundLikelihood - 36.6 + 0.5).toInt()
-//                colors[i] = (colors[i] and 0x00FFFFFF) or (alpha shl 24)
-//            } else {
-//                val alpha = 0
-//                colors[i] = (colors[i] and 0x00FFFFFF) or (alpha shl 24)
-//            }
+
         }
         return colors
     }
