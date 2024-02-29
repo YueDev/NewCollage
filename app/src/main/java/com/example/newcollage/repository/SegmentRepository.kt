@@ -44,6 +44,7 @@ class SegmentRepository {
         return (imageResult.drawable as? BitmapDrawable)?.bitmap
     }
 
+
     private suspend fun segmentBitmap(bitmap: Bitmap): SegmentResult<Bitmap> {
         val option = SelfieSegmenterOptions.Builder()
             .setDetectorMode(SelfieSegmenterOptions.SINGLE_IMAGE_MODE)
