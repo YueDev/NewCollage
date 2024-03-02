@@ -340,6 +340,7 @@ fun MySootheApp(windowSize: WindowSizeClass) {
         WindowWidthSizeClass.Expanded -> {
             MySootheAppLandscape()
         }
+
         else -> {
             MySootheAppPortrait()
         }

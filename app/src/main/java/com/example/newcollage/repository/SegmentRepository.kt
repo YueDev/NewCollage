@@ -76,7 +76,7 @@ class SegmentRepository {
      * */
     @ColorInt
     private fun maskColorsFromByteBuffer(
-        bitmap:Bitmap,
+        bitmap: Bitmap,
         maskWidth: Int,
         maskHeight: Int,
         byteBuffer: ByteBuffer

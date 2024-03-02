@@ -59,7 +59,6 @@ class GalleryRepository {
     }
 
 
-
     // 查询媒体库
     @WorkerThread
     private fun query(contentResolver: ContentResolver): List<Uri> {
