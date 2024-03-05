@@ -76,7 +76,7 @@ fun MainHome(modifier: Modifier = Modifier) {
             Button(onClick = {
                 when (it) {
                     "SubjectSegmentation" -> SelectPhotoActivity.startNewInstance(context, 1)
-                    "Gallery" -> SelectPhotoActivity.startNewInstance(context, 0)
+                    "SegmentationSelfie" -> SelectPhotoActivity.startNewInstance(context, 0)
                     "Compose" -> context.startActivity(Intent(context, ComposeActivity::class.java))
                     "CodeLab" -> context.startActivity(Intent(context, CodeLabActivity::class.java))
                     "MySoothe" -> context.startActivity(Intent(context, MySootheActivity::class.java))
@@ -96,7 +96,7 @@ fun MainHome(modifier: Modifier = Modifier) {
 
 val buttonData = listOf(
     "SubjectSegmentation",
-    "Gallery",
+    "SegmentationSelfie",
     "Compose",
     "CodeLab",
     "MySoothe",

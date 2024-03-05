@@ -3,6 +3,7 @@ package com.example.newcollage.repository
 import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
+import android.util.Log
 import androidx.annotation.ColorInt
 import com.example.newcollage.util.getImageBitmap
 import com.example.newcollage.viewmodel.SegmentResult
@@ -14,6 +15,7 @@ import kotlinx.coroutines.flow.flow
 import java.nio.FloatBuffer
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
+import kotlin.math.log
 
 
 object SubjectSegmentationHelper {

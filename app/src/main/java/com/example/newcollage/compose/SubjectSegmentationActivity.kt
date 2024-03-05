@@ -17,6 +17,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -36,7 +37,6 @@ import kotlinx.coroutines.flow.flowOn
 class SubjectSegmentationActivity : ComponentActivity() {
 
     companion object {
-
         fun startNewInstance(context: Context, uri: Uri) {
             val intent = Intent(context, SubjectSegmentationActivity::class.java)
             intent.putExtra(SegmentActivity.KEY_URI, uri)
@@ -52,7 +52,10 @@ class SubjectSegmentationActivity : ComponentActivity() {
         setContent {
             NewCollageTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    SubjectSegmentationScreen(uri = uri, modifier = Modifier.padding(innerPadding))
+                    SubjectSegmentationScreen(
+                        uri = uri,
+                        modifier = Modifier.padding(innerPadding)
+                    )
                 }
             }
         }
@@ -70,8 +73,8 @@ private fun SubjectSegmentationScreen(
         mutableStateOf(SegmentResult.Loading())
     }
 
+
     LaunchedEffect(key1 = uri) {
-        Log.d("YUEDEVTAG", "1111111111")
         SubjectSegmentationHelper.segment(context, uri)
             .flowOn(Dispatchers.Default)
             .collect {

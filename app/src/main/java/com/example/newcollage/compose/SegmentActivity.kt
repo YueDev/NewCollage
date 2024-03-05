@@ -28,6 +28,8 @@ import com.example.newcollage.compose.ui.theme.NewCollageTheme
 import com.example.newcollage.viewmodel.SegmentResult
 import com.example.newcollage.viewmodel.SegmentViewModel
 
+
+//segmentation-selfie
 class SegmentActivity : ComponentActivity() {
 
     companion object {
