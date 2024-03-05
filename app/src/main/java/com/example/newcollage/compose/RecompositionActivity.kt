@@ -48,7 +48,6 @@ private fun RecompositionScreen(modifier: Modifier = Modifier) {
         Button(onClick = { num++ }) {
             Text(text = "Click")
         }
-
     }
 }
 
