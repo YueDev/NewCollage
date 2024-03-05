@@ -3,7 +3,11 @@ package com.example.newcollage.util
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Matrix
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
+import coil.ImageLoader
+import coil.request.ImageRequest
+import coil.size.Scale
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.FutureTarget
@@ -48,4 +52,18 @@ fun pointInImage(x: Float, y: Float, imageBitmap:Bitmap, imageMatrix: Matrix): B
     val array = floatArrayOf(x, y)
     matrix.mapPoints(array)
     return array[0] > 0f && array[1] > 0f && array[0] < imageBitmap.width && array[1] < imageBitmap.height
+}
+
+// uri获取bitmap 走的coil
+suspend fun getImageBitmap(context: Context, uri: Uri): Bitmap? {
+    val imageLoader = ImageLoader(context)
+    val imageRequest = ImageRequest.Builder(context)
+        .data(uri)
+        .size(2048)
+        .scale(Scale.FIT)
+        .allowConversionToBitmap(true)
+        .allowHardware(false)
+        .build()
+    val imageResult = imageLoader.execute(imageRequest)
+    return (imageResult.drawable as? BitmapDrawable)?.bitmap
 }

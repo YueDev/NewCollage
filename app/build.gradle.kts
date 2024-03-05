@@ -87,6 +87,7 @@ dependencies {
     kapt(libs.room.compiler)
 
     implementation(libs.segmentation.selfie)
+    implementation(libs.subject.segmentation)
 
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)

@@ -1,7 +1,10 @@
 package com.example.newcollage.compose
 
+import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -32,13 +35,29 @@ import com.example.newcollage.viewmodel.GalleryViewModel
 class SelectPhotoActivity : ComponentActivity() {
     private val viewModel by viewModels<GalleryViewModel>()
 
+
+    companion object {
+
+        const val KEY_DST = "key_dst"
+
+        //0 segment activity
+        //1 sugject segmetation activity
+        fun startNewInstance(context: Context, dst: Int) {
+            val intent = Intent(context, SelectPhotoActivity::class.java)
+            intent.putExtra(KEY_DST, dst)
+            context.startActivity(intent)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        val dst = intent.getIntExtra(KEY_DST, 0)
         setContent {
             NewCollageTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     SelectPhotoScreen(
+                        dst = dst,
                         modifier = Modifier.padding(innerPadding), viewModel = viewModel
                     )
                 }
@@ -49,13 +68,21 @@ class SelectPhotoActivity : ComponentActivity() {
 
 @Composable
 private fun SelectPhotoScreen(
-    modifier: Modifier = Modifier, viewModel: GalleryViewModel = viewModel()
+    dst: Int,
+    modifier: Modifier = Modifier,
+    viewModel: GalleryViewModel = viewModel()
 ) {
     val uris by viewModel.urisStateFlow.collectAsState()
     val context = LocalContext.current
 
+    Log.d("YUEDEVTAG", "dst:" + dst)
+
     Gallery(uris = uris, modifier = modifier) {
-        SegmentActivity.startNewInstance(context, it)
+        when(dst) {
+            0 -> SegmentActivity.startNewInstance(context, it)
+            1 -> SubjectSegmentationActivity.startNewInstance(context, it)
+        }
+
     }
 }
 

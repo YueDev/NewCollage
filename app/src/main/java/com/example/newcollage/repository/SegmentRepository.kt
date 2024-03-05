@@ -8,6 +8,7 @@ import androidx.annotation.ColorInt
 import coil.ImageLoader
 import coil.request.ImageRequest
 import coil.size.Scale
+import com.example.newcollage.util.getImageBitmap
 import com.example.newcollage.viewmodel.SegmentResult
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.segmentation.Segmentation
@@ -30,19 +31,6 @@ class SegmentRepository {
         emit(result)
     }
 
-    // uri获取bitmap 走的coil
-    private suspend fun getImageBitmap(context: Context, uri: Uri): Bitmap? {
-        val imageLoader = ImageLoader(context)
-        val imageRequest = ImageRequest.Builder(context)
-            .data(uri)
-            .size(2048)
-            .scale(Scale.FIT)
-            .allowConversionToBitmap(true)
-            .allowHardware(false)
-            .build()
-        val imageResult = imageLoader.execute(imageRequest)
-        return (imageResult.drawable as? BitmapDrawable)?.bitmap
-    }
 
 
     private suspend fun segmentBitmap(bitmap: Bitmap): SegmentResult<Bitmap> {

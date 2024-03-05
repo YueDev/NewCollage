@@ -71,29 +71,41 @@ fun MainHome(modifier: Modifier = Modifier) {
         contentPadding = PaddingValues(16.dp),
         modifier = modifier
     ) {
-        items(buttonDataList) {
+        items(buttonData) {
+
             Button(onClick = {
-                val intent = Intent(context, it.second)
-                context.startActivity(intent)
+                when (it) {
+                    "SubjectSegmentation" -> SelectPhotoActivity.startNewInstance(context, 1)
+                    "Gallery" -> SelectPhotoActivity.startNewInstance(context, 0)
+                    "Compose" -> context.startActivity(Intent(context, ComposeActivity::class.java))
+                    "CodeLab" -> context.startActivity(Intent(context, CodeLabActivity::class.java))
+                    "MySoothe" -> context.startActivity(Intent(context, MySootheActivity::class.java))
+                    "State" -> context.startActivity(Intent(context, StateActivity::class.java))
+                    "Animation" -> context.startActivity(Intent(context, AnimationActivity::class.java))
+                    "TestLayout" -> context.startActivity(Intent(context, TestLayoutActivity::class.java))
+                    "Recomposition" -> context.startActivity(Intent(context, RecompositionActivity::class.java))
+                    "Flow(XML)" -> context.startActivity(Intent(context, FlowActivity::class.java))
+                    "Hilt(XML)" -> context.startActivity(Intent(context, HiltActivity::class.java))
+                }
             }) {
-                Text(text = it.first)
+                Text(text = it)
             }
         }
     }
 }
 
-
-val buttonDataList = listOf(
-    "Gallery" to SelectPhotoActivity::class.java,
-    "Compose" to ComposeActivity::class.java,
-    "CodeLab" to CodeLabActivity::class.java,
-    "MySoothe" to MySootheActivity::class.java,
-    "State" to StateActivity::class.java,
-    "Animation" to AnimationActivity::class.java,
-    "TestLayout" to TestLayoutActivity::class.java,
-    "Recomposition" to RecompositionActivity::class.java,
-    "Flow(XML)" to FlowActivity::class.java,
-    "Hilt(XML)" to HiltActivity::class.java,
+val buttonData = listOf(
+    "SubjectSegmentation",
+    "Gallery",
+    "Compose",
+    "CodeLab",
+    "MySoothe",
+    "State",
+    "Animation",
+    "TestLayout",
+    "Recomposition",
+    "Flow(XML)",
+    "Hilt(XML)",
 )
 
 @Preview(showBackground = true)

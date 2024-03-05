@@ -32,7 +32,7 @@ class SegmentActivity : ComponentActivity() {
 
     companion object {
 
-        private const val KEY_URI = "key_uri"
+        const val KEY_URI = "key_uri"
         fun startNewInstance(context: Context, uri: Uri) {
             val intent = Intent(context, SegmentActivity::class.java)
             intent.putExtra(KEY_URI, uri)
@@ -74,7 +74,7 @@ private fun SegmentScreen(
 }
 
 @Composable
-private fun SegmentView(segmentResult: SegmentResult<Bitmap>, modifier: Modifier = Modifier) {
+fun SegmentView(segmentResult: SegmentResult<Bitmap>, modifier: Modifier = Modifier) {
     Column(modifier = modifier) {
         when (segmentResult) {
             is SegmentResult.Failed -> {

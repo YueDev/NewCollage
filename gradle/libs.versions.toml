@@ -20,7 +20,8 @@ activity = "1.8.2"
 hilt = "2.50"
 room = "2.6.1"
 
-segmentation-selfie = "16.0.0-beta4"
+segmentation-selfie = "16.0.0-beta5"
+subject_segmentation = "16.0.0-beta1"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -56,6 +57,7 @@ room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 
 segmentation-selfie = { group = "com.google.mlkit", name = "segmentation-selfie", version.ref = "segmentation-selfie" }
+subject_segmentation = { group = "com.google.android.gms", name = "play-services-mlkit-subject-segmentation", version.ref = "subject_segmentation" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
