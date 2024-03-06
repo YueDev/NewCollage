@@ -18,7 +18,6 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.suspendCancellableCoroutine
 import java.nio.FloatBuffer
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -36,33 +35,40 @@ object SubjectSegmentationHelper {
     fun downloadModule(context: Context): Flow<MyResult<Int>> = callbackFlow {
         trySend(MyResult.Loading())
         val moduleInstallClient = ModuleInstall.getClient(context)
+
         val listener = InstallStatusListener {
-            Log.d("YUEDEVTAG", "state: ${it.installState}")
+            when(it.installState) {
+                ModuleInstallStatusUpdate.InstallState.STATE_COMPLETED -> {
+                    trySend(MyResult.Success(1))
+                }
+                ModuleInstallStatusUpdate.InstallState.STATE_FAILED -> {
+                    trySend(MyResult.Failed("module install failed"))
+                }
+            }
         }
 
-        val moduleInstallRequest =
-            ModuleInstallRequest.newBuilder()
-                .addApi(segmenter)
-                .setListener(listener)
-                .build()
-
-
-
-        moduleInstallClient
-            .installModules(moduleInstallRequest)
+        moduleInstallClient.areModulesAvailable(segmenter)
             .addOnSuccessListener {
-                if (it.areModulesAlreadyInstalled()) {
+                if (it.areModulesAvailable()) {
+                    //安装成功
                     trySend(MyResult.Success(0))
                 } else {
-                    trySend(MyResult.Failed("not installed"))
+                    //请求安装
+                    val request =
+                        ModuleInstallRequest.newBuilder()
+                            .addApi(segmenter)
+                            .setListener(listener)
+                            .build()
+                    moduleInstallClient.installModules(request)
                 }
             }.addOnFailureListener {
-                trySend(MyResult.Failed(it.message ?: "unknown error"))
+                it.printStackTrace()
+                trySend(MyResult.Failed(it.message ?: "error but no message"))
             }
 
         awaitClose {
             moduleInstallClient.unregisterListener(listener)
-            Log.d("YUEDEVTAG", "unregisterListener")
+
         }
     }
 
