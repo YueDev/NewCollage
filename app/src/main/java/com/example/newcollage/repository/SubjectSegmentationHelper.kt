@@ -6,16 +6,22 @@ import android.net.Uri
 import android.util.Log
 import androidx.annotation.ColorInt
 import com.example.newcollage.util.getImageBitmap
-import com.example.newcollage.viewmodel.SegmentResult
+import com.example.newcollage.viewmodel.MyResult
+import com.google.android.gms.common.moduleinstall.InstallStatusListener
+import com.google.android.gms.common.moduleinstall.ModuleInstall
+import com.google.android.gms.common.moduleinstall.ModuleInstallRequest
+import com.google.android.gms.common.moduleinstall.ModuleInstallStatusUpdate
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.segmentation.subject.SubjectSegmentation
 import com.google.mlkit.vision.segmentation.subject.SubjectSegmenterOptions
+import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.suspendCancellableCoroutine
 import java.nio.FloatBuffer
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
-import kotlin.math.log
 
 
 object SubjectSegmentationHelper {
@@ -26,17 +32,54 @@ object SubjectSegmentationHelper {
 
     private val segmenter = SubjectSegmentation.getClient(options)
 
-    fun segment(context: Context, uri: Uri): Flow<SegmentResult<Bitmap>> = flow {
-        emit(SegmentResult.Loading())
+
+    fun downloadModule(context: Context): Flow<MyResult<Int>> = callbackFlow {
+        trySend(MyResult.Loading())
+        val moduleInstallClient = ModuleInstall.getClient(context)
+        val listener = InstallStatusListener {
+            Log.d("YUEDEVTAG", "state: ${it.installState}")
+        }
+
+        val moduleInstallRequest =
+            ModuleInstallRequest.newBuilder()
+                .addApi(segmenter)
+                .setListener(listener)
+                .build()
+
+
+
+        moduleInstallClient
+            .installModules(moduleInstallRequest)
+            .addOnSuccessListener {
+                if (it.areModulesAlreadyInstalled()) {
+                    trySend(MyResult.Success(0))
+                } else {
+                    trySend(MyResult.Failed("not installed"))
+                }
+            }.addOnFailureListener {
+                trySend(MyResult.Failed(it.message ?: "unknown error"))
+            }
+
+        awaitClose {
+            moduleInstallClient.unregisterListener(listener)
+            Log.d("YUEDEVTAG", "unregisterListener")
+        }
+    }
+
+
+
+
+    fun segment(context: Context, uri: Uri): Flow<MyResult<Bitmap>> = flow {
+        emit(MyResult.Loading())
         val imageBitmap = getImageBitmap(context, uri) ?: let {
-            emit(SegmentResult.Failed("Can't get bitmap from uri."))
+            emit(MyResult.Failed("Can't get bitmap from uri."))
             return@flow
         }
 
         getResult(imageBitmap)?.also { bitmap ->
-            emit(SegmentResult.Success(bitmap))
+            emit(MyResult.Success(bitmap))
         } ?: run {
-            emit(SegmentResult.Failed("Segment result is null"))
+            emit(MyResult.Failed("Segment result is null"))
         }
     }
 

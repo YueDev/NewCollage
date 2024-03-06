@@ -19,8 +19,8 @@ class SegmentViewModel : ViewModel() {
 
     private val segmentRepository = SegmentRepository()
 
-    private val _segmentResult: MutableStateFlow<SegmentResult<Bitmap>> = MutableStateFlow(SegmentResult.Loading())
-    val segmentResult = _segmentResult as StateFlow<SegmentResult<Bitmap>>
+    private val _segmentResult: MutableStateFlow<MyResult<Bitmap>> = MutableStateFlow(MyResult.Loading())
+    val segmentResult = _segmentResult as StateFlow<MyResult<Bitmap>>
 
     fun requestSegment(context: Context, uri: Uri) {
         if (isInit) return
@@ -33,8 +33,8 @@ class SegmentViewModel : ViewModel() {
     }
 }
 
-sealed class SegmentResult<T>(val data: T? = null, val errorMessage: String? = null) {
-    class Success<T>(data: T): SegmentResult<T>(data = data)
-    class Loading<T>: SegmentResult<T>()
-    class Failed<T>(errorMessage: String): SegmentResult<T>(errorMessage = errorMessage)
+sealed class MyResult<T>(val data: T? = null, val errorMessage: String? = null) {
+    class Success<T>(data: T): MyResult<T>(data = data)
+    class Loading<T>: MyResult<T>()
+    class Failed<T>(errorMessage: String): MyResult<T>(errorMessage = errorMessage)
 }

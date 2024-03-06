@@ -5,11 +5,9 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,15 +15,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.newcollage.compose.ui.theme.NewCollageTheme
-import com.example.newcollage.viewmodel.SegmentResult
+import com.example.newcollage.viewmodel.MyResult
 import com.example.newcollage.viewmodel.SegmentViewModel
 
 
@@ -76,21 +72,21 @@ private fun SegmentScreen(
 }
 
 @Composable
-fun SegmentView(segmentResult: SegmentResult<Bitmap>, modifier: Modifier = Modifier) {
+fun SegmentView(segmentResult: MyResult<Bitmap>, modifier: Modifier = Modifier) {
     Column(modifier = modifier) {
         when (segmentResult) {
-            is SegmentResult.Failed -> {
+            is MyResult.Failed -> {
                 Text(
                     text = segmentResult.errorMessage ?: "unknown error",
                     modifier = Modifier.fillMaxSize()
                 )
             }
 
-            is SegmentResult.Loading -> {
+            is MyResult.Loading -> {
                 Text(text = "Loading", modifier = Modifier.fillMaxSize())
             }
 
-            is SegmentResult.Success -> {
+            is MyResult.Success -> {
                 val bitmap = segmentResult.data ?: return@Column
                 Image(
                     bitmap = bitmap.asImageBitmap(),

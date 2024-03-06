@@ -22,6 +22,7 @@ room = "2.6.1"
 
 segmentation-selfie = "16.0.0-beta5"
 subject_segmentation = "16.0.0-beta1"
+play-services = "18.3.0"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -57,6 +58,8 @@ room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 
 segmentation-selfie = { group = "com.google.mlkit", name = "segmentation-selfie", version.ref = "segmentation-selfie" }
+
+play-services = { group = "com.google.android.gms", name = "play-services-base", version.ref = "play-services" }
 subject_segmentation = { group = "com.google.android.gms", name = "play-services-mlkit-subject-segmentation", version.ref = "subject_segmentation" }
 
 [plugins]

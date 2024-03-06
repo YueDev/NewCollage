@@ -160,7 +160,10 @@ val datas = listOf(
                 "Android Pie (API 28)\n" +
                 "Android 10 (API 29)\n" +
                 "Android 11 (API 30)\n" +
-                "Android 12 (API 31)\n"
+                "Android 12 (API 31)\n" +
+                "Android 12L (API 32)\n" +
+                "Android 13 (API 33)\n" +
+                "Android 14 (API 34)"
     ),
     Message(
         "Colleague",

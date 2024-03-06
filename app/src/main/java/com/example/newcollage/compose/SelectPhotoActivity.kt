@@ -75,8 +75,6 @@ private fun SelectPhotoScreen(
     val uris by viewModel.urisStateFlow.collectAsState()
     val context = LocalContext.current
 
-    Log.d("YUEDEVTAG", "dst:" + dst)
-
     Gallery(uris = uris, modifier = modifier) {
         when(dst) {
             0 -> SegmentActivity.startNewInstance(context, it)

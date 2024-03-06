@@ -2,14 +2,10 @@ package com.example.newcollage.repository
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import androidx.annotation.ColorInt
-import coil.ImageLoader
-import coil.request.ImageRequest
-import coil.size.Scale
 import com.example.newcollage.util.getImageBitmap
-import com.example.newcollage.viewmodel.SegmentResult
+import com.example.newcollage.viewmodel.MyResult
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.segmentation.Segmentation
 import com.google.mlkit.vision.segmentation.selfie.SelfieSegmenterOptions
@@ -22,9 +18,9 @@ import kotlin.coroutines.resume
 class SegmentRepository {
 
     fun segment(context: Context, uri: Uri) = flow {
-        emit(SegmentResult.Loading())
+        emit(MyResult.Loading())
         val imageBitmap = getImageBitmap(context, uri) ?: let {
-            emit(SegmentResult.Failed("Can't get bitmap from uri."))
+            emit(MyResult.Failed("Can't get bitmap from uri."))
             return@flow
         }
         val result = segmentBitmap(imageBitmap)
@@ -33,7 +29,7 @@ class SegmentRepository {
 
 
 
-    private suspend fun segmentBitmap(bitmap: Bitmap): SegmentResult<Bitmap> {
+    private suspend fun segmentBitmap(bitmap: Bitmap): MyResult<Bitmap> {
         val option = SelfieSegmenterOptions.Builder()
             .setDetectorMode(SelfieSegmenterOptions.SINGLE_IMAGE_MODE)
 //            .enableRawSizeMask()
@@ -49,11 +45,11 @@ class SegmentRepository {
                     val colors = maskColorsFromByteBuffer(bitmap, maskWidth, maskHeight, buffer)
                     val maskBitmap =
                         Bitmap.createBitmap(colors, maskWidth, maskHeight, Bitmap.Config.ARGB_8888)
-                    continuation.resume(SegmentResult.Success(maskBitmap))
+                    continuation.resume(MyResult.Success(maskBitmap))
                 }
                 .addOnFailureListener { e ->
                     val errorMessage = e.localizedMessage ?: "segment error"
-                    continuation.resume(SegmentResult.Failed(errorMessage))
+                    continuation.resume(MyResult.Failed(errorMessage))
                 }
         }
     }
