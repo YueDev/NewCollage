@@ -63,4 +63,5 @@
     <string name="title_activity_segment">SegmentActivity</string>
     <string name="title_activity_recomposition">RecompositionActivity</string>
     <string name="title_activity_subject_segmeation">SubjectSegmeationActivity</string>
+    <string name="title_activity_save_bitmap">SaveBitmap</string>
 </resources>

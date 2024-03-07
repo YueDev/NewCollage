@@ -5,12 +5,14 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,12 +22,18 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.layout.positionInParent
 import androidx.compose.ui.platform.LocalContext
 import com.example.newcollage.repository.SubjectSegmentationHelper
 import com.example.newcollage.ui.theme.NewCollageTheme
 import com.example.newcollage.viewmodel.MyResult
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SubjectSegmentationActivity : ComponentActivity() {
 
@@ -72,8 +80,9 @@ private fun SubjectSegmentationScreen(
                 downloadModuleResult = it
             }
     }
+
     Column(modifier = modifier) {
-        when(downloadModuleResult) {
+        when (downloadModuleResult) {
             is MyResult.Failed -> Text(text = "Download Module error: ${downloadModuleResult.errorMessage}")
             is MyResult.Loading -> Text(text = "Downloading Module...")
             is MyResult.Success -> SubjectSegmentationView(uri = uri)

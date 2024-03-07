@@ -18,6 +18,7 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
 import java.nio.FloatBuffer
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -41,6 +42,7 @@ object SubjectSegmentationHelper {
                 ModuleInstallStatusUpdate.InstallState.STATE_COMPLETED -> {
                     trySend(MyResult.Success(1))
                 }
+
                 ModuleInstallStatusUpdate.InstallState.STATE_FAILED -> {
                     trySend(MyResult.Failed("module install failed"))
                 }
@@ -68,11 +70,9 @@ object SubjectSegmentationHelper {
 
         awaitClose {
             moduleInstallClient.unregisterListener(listener)
-
         }
+
     }
-
-
 
 
     fun segment(context: Context, uri: Uri): Flow<MyResult<Bitmap>> = flow {
