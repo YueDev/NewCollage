@@ -32,8 +32,10 @@ import com.example.newcollage.viewmodel.MyResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.math.log
 
 class SubjectSegmentationActivity : ComponentActivity() {
 
@@ -76,6 +78,9 @@ private fun SubjectSegmentationScreen(
     //下载模型
     LaunchedEffect(key1 = true) {
         SubjectSegmentationHelper.downloadModule(context)
+            .onCompletion {
+                Log.d("YUEDEVTAG", "Completion: $it")
+            }
             .collect {
                 downloadModuleResult = it
             }
@@ -103,13 +108,12 @@ private fun SubjectSegmentationView(
         mutableStateOf(MyResult.Loading())
     }
 
-
     LaunchedEffect(key1 = uri) {
         SubjectSegmentationHelper.segment(context, uri)
-            .flowOn(Dispatchers.Default)
             .collect {
                 segmentResult = it
             }
+
     }
 
     SegmentView(segmentResult = segmentResult, modifier = modifier)

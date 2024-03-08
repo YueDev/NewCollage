@@ -14,11 +14,15 @@ import com.google.android.gms.common.moduleinstall.ModuleInstallStatusUpdate
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.segmentation.subject.SubjectSegmentation
 import com.google.mlkit.vision.segmentation.subject.SubjectSegmenterOptions
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.channels.trySendBlocking
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
 import java.nio.FloatBuffer
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -54,6 +58,8 @@ object SubjectSegmentationHelper {
                 if (it.areModulesAvailable()) {
                     //安装成功
                     trySend(MyResult.Success(0))
+                    //也可以判断这个任务是否成功 再cancel
+                    cancel()
                 } else {
                     //请求安装
                     val request =
@@ -89,7 +95,7 @@ object SubjectSegmentationHelper {
         }
     }
 
-    private suspend fun getResult(image: Bitmap) = suspendCoroutine {
+    private suspend fun getResult(image: Bitmap) = suspendCancellableCoroutine {
 
         val inputImage = InputImage.fromBitmap(image, 0)
 
@@ -103,6 +109,7 @@ object SubjectSegmentationHelper {
                     val maskBitmap =
                         Bitmap.createBitmap(colors, maskWidth, maskHeight, Bitmap.Config.ARGB_8888)
                     it.resume(maskBitmap)
+//                    it.cancel()
                 } ?: run {
                     it.resume(null)
                 }

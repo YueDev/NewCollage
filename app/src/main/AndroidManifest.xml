@@ -20,6 +20,11 @@
         android:theme="@style/Theme.NewCollage"
         tools:targetApi="31">
         <activity
+            android:name=".compose.TouchActivity"
+            android:exported="false"
+            android:label="@string/title_activity_touch"
+            android:theme="@style/Theme.NewCollage" />
+        <activity
             android:name=".compose.SaveBitmapActivity"
             android:exported="false"
             android:label="@string/title_activity_save_bitmap"
@@ -91,7 +96,7 @@
 
         <meta-data
             android:name="com.google.mlkit.vision.DEPENDENCIES"
-            android:value="subject_segment"></meta-data>
+            android:value="subject_segment" />
     </application>
 
 </manifest>

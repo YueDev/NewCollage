@@ -85,6 +85,7 @@ fun MainHome(modifier: Modifier = Modifier) {
                     "TestLayout" -> context.startActivity(Intent(context, TestLayoutActivity::class.java))
                     "Recomposition" -> context.startActivity(Intent(context, RecompositionActivity::class.java))
                     "SaveBitmap" -> context.startActivity(Intent(context, SaveBitmapActivity::class.java))
+                    "Touch" -> context.startActivity(Intent(context, TouchActivity::class.java))
                     "Flow(XML)" -> context.startActivity(Intent(context, FlowActivity::class.java))
                     "Hilt(XML)" -> context.startActivity(Intent(context, HiltActivity::class.java))
                 }
@@ -106,6 +107,7 @@ val buttonData = listOf(
     "TestLayout",
     "Recomposition",
     "SaveBitmap",
+    "Touch",
     "Flow(XML)",
     "Hilt(XML)",
 )

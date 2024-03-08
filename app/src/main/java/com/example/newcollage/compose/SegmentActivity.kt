@@ -9,15 +9,19 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.draggable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
@@ -85,7 +89,7 @@ fun SegmentView(segmentResult: MyResult<Bitmap>, modifier: Modifier = Modifier) 
             }
 
             is MyResult.Loading -> {
-                Text(text = "Loading", modifier = Modifier.fillMaxSize())
+                Text(text = "Segment...", modifier = Modifier.fillMaxSize())
             }
 
             is MyResult.Success -> {
@@ -93,7 +97,9 @@ fun SegmentView(segmentResult: MyResult<Bitmap>, modifier: Modifier = Modifier) 
                 Image(
                     bitmap = bitmap.asImageBitmap(),
                     contentDescription = null,
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(color = MaterialTheme.colorScheme.errorContainer)
                 )
             }
         }
