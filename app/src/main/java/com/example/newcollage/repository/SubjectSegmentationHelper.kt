@@ -37,6 +37,7 @@ object SubjectSegmentationHelper {
     private val segmenter = SubjectSegmentation.getClient(options)
 
 
+    //这种没有长时间的持续回调用普通flow比较好
     fun downloadModule(context: Context): Flow<MyResult<Int>> = callbackFlow {
         trySend(MyResult.Loading())
         val moduleInstallClient = ModuleInstall.getClient(context)

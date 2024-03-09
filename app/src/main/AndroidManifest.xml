@@ -20,6 +20,11 @@
         android:theme="@style/Theme.NewCollage"
         tools:targetApi="31">
         <activity
+            android:name=".compose.GalleryActivity"
+            android:exported="false"
+            android:label="@string/title_activity_gallery"
+            android:theme="@style/Theme.NewCollage" />
+        <activity
             android:name=".compose.TouchActivity"
             android:exported="false"
             android:label="@string/title_activity_touch"

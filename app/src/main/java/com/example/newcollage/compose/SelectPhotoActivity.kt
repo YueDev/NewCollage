@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -30,10 +29,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.newcollage.compose.ui.theme.NewCollageTheme
-import com.example.newcollage.viewmodel.GalleryViewModel
+import com.example.newcollage.viewmodel.PhotoViewModel
 
 class SelectPhotoActivity : ComponentActivity() {
-    private val viewModel by viewModels<GalleryViewModel>()
+    private val viewModel by viewModels<PhotoViewModel>()
 
 
     companion object {
@@ -70,17 +69,16 @@ class SelectPhotoActivity : ComponentActivity() {
 private fun SelectPhotoScreen(
     dst: Int,
     modifier: Modifier = Modifier,
-    viewModel: GalleryViewModel = viewModel()
+    viewModel: PhotoViewModel = viewModel()
 ) {
     val uris by viewModel.urisStateFlow.collectAsState()
     val context = LocalContext.current
 
     Gallery(uris = uris, modifier = modifier) {
-        when(dst) {
+        when (dst) {
             0 -> SegmentActivity.startNewInstance(context, it)
             1 -> SubjectSegmentationActivity.startNewInstance(context, it)
         }
-
     }
 }
 
