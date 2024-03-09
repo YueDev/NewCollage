@@ -65,4 +65,7 @@
     <string name="title_activity_subject_segmeation">SubjectSegmeationActivity</string>
     <string name="title_activity_save_bitmap">SaveBitmap</string>
     <string name="title_activity_touch">TouchActivity</string>
+    <string name="title_activity_main_test">MainTestActivity</string>
+    <string name="title_activity_maaaaain2">MaaaaainActivity2</string>
+    <string name="title_activity_main_aaaactivity2">MainAAAActivity2</string>
 </resources>

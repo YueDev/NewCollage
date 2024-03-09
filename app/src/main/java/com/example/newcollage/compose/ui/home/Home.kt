@@ -120,12 +120,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.newcollage.R
-import com.example.newcollage.compose.ui.theme.Amber600
 import com.example.newcollage.compose.ui.theme.NewCollageTheme
-import com.example.newcollage.compose.ui.theme.Green
-import com.example.newcollage.compose.ui.theme.GreenLight
-import com.example.newcollage.compose.ui.theme.PaleDogwood
-import com.example.newcollage.compose.ui.theme.Seashell
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -135,6 +130,14 @@ import kotlin.math.roundToInt
 private enum class TabPage {
     Home, Work
 }
+
+
+//some color
+private val Amber600 = Color(0xFFFFB300)
+private val PaleDogwood = Color(0xFFfcd5ce)
+private val Seashell = Color(0xFFf8edeb)
+private val Green = Color(0xFFd8e2dc)
+private val GreenLight = Color(0xFFEBF1EE)
 
 /**
  * Shows the entire screen.
@@ -294,7 +297,7 @@ fun Home() {
  */
 // AnimatedVisibility is currently an experimental API in Compose Animation.
 @Composable
-private fun HomeFloatingActionButton(
+fun HomeFloatingActionButton(
     extended: Boolean,
     onClick: () -> Unit
 ) {

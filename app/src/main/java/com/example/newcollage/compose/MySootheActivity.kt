@@ -56,7 +56,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.newcollage.R
-import com.example.newcollage.compose.ui.theme.MySootheTheme
+import com.example.newcollage.compose.ui.theme.NewCollageTheme
 
 
 // https://developer.android.com/codelabs/jetpack-compose-layouts#0
@@ -266,7 +266,7 @@ private fun SootheBottomNavigation(modifier: Modifier = Modifier) {
 // Step: MySoothe App - Scaffold
 @Composable
 fun MySootheAppPortrait() {
-    MySootheTheme {
+    NewCollageTheme {
         Scaffold(
             bottomBar = { SootheBottomNavigation() }
         ) {
@@ -322,7 +322,7 @@ private fun SootheNavigationRail(modifier: Modifier = Modifier) {
 // Step: Landscape Mode
 @Composable
 fun MySootheAppLandscape() {
-    MySootheTheme {
+    NewCollageTheme {
         Surface(color = MaterialTheme.colorScheme.background) {
             Row {
                 SootheNavigationRail()
@@ -340,7 +340,6 @@ fun MySootheApp(windowSize: WindowSizeClass) {
         WindowWidthSizeClass.Expanded -> {
             MySootheAppLandscape()
         }
-
         else -> {
             MySootheAppPortrait()
         }
@@ -373,13 +372,13 @@ private data class DrawableStringPair(
 @Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
 @Composable
 fun SearchBarPreview() {
-    MySootheTheme { SearchBar(Modifier.padding(8.dp)) }
+    NewCollageTheme { SearchBar(Modifier.padding(8.dp)) }
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
 @Composable
 fun AlignYourBodyElementPreview() {
-    MySootheTheme {
+    NewCollageTheme {
         AlignYourBodyElement(
             drawable = R.drawable.ab1_inversions,
             text = R.string.ab1_inversions,
@@ -391,7 +390,7 @@ fun AlignYourBodyElementPreview() {
 @Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
 @Composable
 fun FavoriteCollectionCardPreview() {
-    MySootheTheme {
+    NewCollageTheme {
         FavoriteCollectionCard(
             modifier = Modifier.padding(8.dp),
             drawable = R.drawable.fc2_nature_meditations,
@@ -403,19 +402,19 @@ fun FavoriteCollectionCardPreview() {
 @Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
 @Composable
 fun FavoriteCollectionsGridPreview() {
-    MySootheTheme { FavoriteCollectionsGrid() }
+    NewCollageTheme { FavoriteCollectionsGrid() }
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
 @Composable
 fun AlignYourBodyRowPreview() {
-    MySootheTheme { AlignYourBodyRow() }
+    NewCollageTheme { AlignYourBodyRow() }
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
 @Composable
 fun HomeSectionPreview() {
-    MySootheTheme {
+    NewCollageTheme {
         HomeSection(title = R.string.align_your_body) {
             AlignYourBodyRow()
         }
@@ -425,19 +424,19 @@ fun HomeSectionPreview() {
 @Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
 @Composable
 fun ScreenContentPreview() {
-    MySootheTheme { HomeScreen() }
+    NewCollageTheme { HomeScreen() }
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
 @Composable
 fun BottomNavigationPreview() {
-    MySootheTheme { SootheBottomNavigation(Modifier.padding(top = 24.dp)) }
+    NewCollageTheme { SootheBottomNavigation(Modifier.padding(top = 24.dp)) }
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
 @Composable
 fun NavigationRailPreview() {
-    MySootheTheme { SootheNavigationRail() }
+    NewCollageTheme { SootheNavigationRail() }
 }
 
 @Preview(widthDp = 360, heightDp = 640)
