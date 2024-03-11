@@ -63,6 +63,7 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintlayout)
+    implementation(libs.activity.ktx)
 
     implementation(libs.glide)
     implementation(libs.glide.compose)
