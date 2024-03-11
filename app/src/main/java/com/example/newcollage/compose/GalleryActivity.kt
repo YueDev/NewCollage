@@ -56,12 +56,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.util.fastMap
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.newcollage.compose.ui.theme.NewCollageTheme
 import com.example.newcollage.repository.GalleryRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOn
+import java.util.ArrayList
 
 //相册 支持多选
 class GalleryActivity : ComponentActivity() {
@@ -105,7 +107,9 @@ fun GalleryScreen(modifier: Modifier = Modifier) {
                 exit = scaleOut(targetScale = 0.25f) + fadeOut()
             ) {
                 FloatingActionButton(onClick = {
-
+                    val uris = images.filter { it.selected }.map {it.uri}
+                    if (uris.isEmpty()) return@FloatingActionButton
+                    XCollageActivity.startNewInstance(context, ArrayList(uris))
                 }) {
                     Icon(imageVector = Icons.AutoMirrored.Filled.Send, contentDescription = null)
                 }
