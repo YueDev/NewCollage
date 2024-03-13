@@ -43,7 +43,7 @@ object SubjectSegmentationHelper {
         val moduleInstallClient = ModuleInstall.getClient(context)
 
         val listener = InstallStatusListener {
-            when(it.installState) {
+            when (it.installState) {
                 ModuleInstallStatusUpdate.InstallState.STATE_COMPLETED -> {
                     trySend(MyResult.Success(1))
                 }
