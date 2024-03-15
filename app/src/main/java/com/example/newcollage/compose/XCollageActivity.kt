@@ -43,9 +43,7 @@ class XCollageActivity : ComponentActivity() {
         setContent {
             NewCollageTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    XCollageScreen(
-                        uris = uris, modifier = Modifier.padding(innerPadding)
-                    )
+                    XCollageScreen(uris = uris, modifier = Modifier.padding(innerPadding))
                 }
             }
         }
@@ -53,13 +51,15 @@ class XCollageActivity : ComponentActivity() {
 }
 
 @Composable
-fun XCollageScreen(uris: List<Uri>, modifier: Modifier = Modifier) {
+fun XCollageScreen(
+    uris: List<Uri>,
+    modifier: Modifier = Modifier,
+    viewModel: XCollageViewModel = viewModel()
+) {
     val context = LocalContext.current
-    val viewModel = viewModel {
-        XCollageViewModel(uris)
-    }
 
 }
+
 
 @Preview(showBackground = true)
 @Composable
