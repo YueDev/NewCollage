@@ -89,37 +89,32 @@ fun GalleryScreen(modifier: Modifier = Modifier) {
     }
 
     LaunchedEffect(key1 = Unit) {
-        GalleryRepository().loadMediaData(context).flowOn(Dispatchers.IO)
-            .collect { uriList ->
-                val newImageList = uriList.map { uri ->
-                    images.find { it.uri == uri } ?: ImageModel(uri)
-                }
-                images = newImageList
+        GalleryRepository().loadMediaData(context).flowOn(Dispatchers.IO).collect { uriList ->
+            val newImageList = uriList.map { uri ->
+                images.find { it.uri == uri } ?: ImageModel(uri)
             }
+            images = newImageList
+        }
     }
 
     Scaffold(
         floatingActionButton = {
             val showFab = images.any { it.selected }
             AnimatedVisibility(
-                showFab,
-                enter = scaleIn(initialScale = 0.25f),
-                exit = scaleOut(targetScale = 0.25f) + fadeOut()
+                showFab, enter = scaleIn(initialScale = 0.25f), exit = scaleOut(targetScale = 0.25f) + fadeOut()
             ) {
                 FloatingActionButton(onClick = {
-                    val uris = images.filter { it.selected }.map {it.uri}
+                    val uris = images.filter { it.selected }.map { it.uri }
                     if (uris.isEmpty()) return@FloatingActionButton
                     XCollageActivity.startNewInstance(context, ArrayList(uris))
                 }) {
                     Icon(imageVector = Icons.AutoMirrored.Filled.Send, contentDescription = null)
                 }
             }
-        },
-        modifier = modifier
+        }, modifier = modifier
     ) { innerPadding ->
         Gallery(
-            images = images,
-            onClick = { uri ->
+            images = images, onClick = { uri ->
                 //点击图片 修改images
                 val list = images.toMutableList()
                 val index = list.indexOfFirst { it.uri == uri }
@@ -128,8 +123,7 @@ fun GalleryScreen(modifier: Modifier = Modifier) {
                 list.removeAt(index)
                 list.add(index, newImage)
                 images = list
-            },
-            modifier = modifier
+            }, modifier = modifier
                 .fillMaxSize()
                 .padding(innerPadding)
         )
@@ -139,9 +133,7 @@ fun GalleryScreen(modifier: Modifier = Modifier) {
 
 @Composable
 private fun Gallery(
-    images: List<ImageModel>,
-    onClick: (Uri) -> Unit,
-    modifier: Modifier = Modifier
+    images: List<ImageModel>, onClick: (Uri) -> Unit, modifier: Modifier = Modifier
 ) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(112.dp),
@@ -163,8 +155,7 @@ private fun Gallery(
 private fun GalleryItem(image: ImageModel, click: (Uri) -> Unit, modifier: Modifier = Modifier) {
     Box(modifier = modifier
         .aspectRatio(1.0f)
-        .clickable { click(image.uri) }
-    ) {
+        .clickable { click(image.uri) }) {
         GlideImage(
             model = image.uri,
             contentDescription = null,
@@ -174,7 +165,7 @@ private fun GalleryItem(image: ImageModel, click: (Uri) -> Unit, modifier: Modif
                 .background(MaterialTheme.colorScheme.primaryContainer)
                 .animateSelect(image.selected)
         )
-        AnimatedVisibility (image.selected) {
+        AnimatedVisibility(image.selected) {
             Icon(
                 imageVector = Icons.Filled.Check,
                 tint = MaterialTheme.colorScheme.onPrimary,
@@ -195,8 +186,7 @@ private fun GalleryItem(image: ImageModel, click: (Uri) -> Unit, modifier: Modif
 @Composable
 fun Modifier.animateSelect(select: Boolean): Modifier {
     val progress by animateFloatAsState(
-        animationSpec = spring(stiffness = Spring.StiffnessMedium),
-        targetValue = if (select) 1.0f else 0.0f, label = ""
+        animationSpec = spring(stiffness = Spring.StiffnessMedium), targetValue = if (select) 1.0f else 0.0f, label = ""
     )
     //scale 1.0: 0.8f  0.0: 1.0f
     val scale = 0.8f + (1.0f - progress) * 0.2f
@@ -218,8 +208,7 @@ private fun roundedCornerShape(cornerSize: Dp) = RoundedCornerShape(cornerSize)
 // 不知道为什么data class是不稳定的，需要加Stable
 @Stable
 private data class ImageModel(
-    val uri: Uri,
-    val selected: Boolean = false
+    val uri: Uri, val selected: Boolean = false
 )
 
 @Composable
