@@ -107,9 +107,7 @@ fun GalleryScreen(modifier: Modifier = Modifier) {
                     val uris = images.filter { it.selected }.map { it.uri }
                     if (uris.isEmpty()) return@FloatingActionButton
                     XCollageActivity.startNewInstance(context, ArrayList(uris))
-                }) {
-                    Icon(imageVector = Icons.AutoMirrored.Filled.Send, contentDescription = null)
-                }
+                }) { Icon(imageVector = Icons.AutoMirrored.Filled.Send, contentDescription = null) }
             }
         }, modifier = modifier
     ) { innerPadding ->
