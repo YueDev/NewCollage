@@ -1,6 +1,6 @@
 [versions]
 agp = "8.3.1"
-kotlin = "1.9.21"
+kotlin = "1.9.23"
 core-ktx = "1.12.0"
 appcompat = "1.6.1"
 material = "1.11.0"
@@ -9,16 +9,16 @@ activity-ktx = "1.8.2"
 
 lifecycleRuntimeKtx = "2.7.0"
 activityCompose = "1.8.2"
-composeBom = "2024.02.02"
+composeBom = "2024.03.00"
 
 glide = "4.16.0"
 glide-compose = "1.0.0-beta01"
-coil-compose = "2.5.0"
+coil-compose = "2.6.0"
 permissionx = "1.7.1"
 material3WindowSizeClass = "1.2.1"
 activity = "1.8.2"
 
-hilt = "2.50"
+hilt = "2.51"
 room = "2.6.1"
 
 segmentation-selfie = "16.0.0-beta5"
