@@ -105,7 +105,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".compose.BrushActivity"
+            android:name=".compose.ShaderRuntimeActivity"
             android:exported="false" />
         <meta-data
             android:name="com.google.mlkit.vision.DEPENDENCIES"

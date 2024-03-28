@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -78,7 +79,13 @@ fun MainHome(modifier: Modifier = Modifier) {
                     "SubjectSegmentation" -> SelectPhotoActivity.startNewInstance(context, 1)
                     "SegmentationSelfie" -> SelectPhotoActivity.startNewInstance(context, 0)
                     "Gallery" -> context.startActivity(Intent(context, GalleryActivity::class.java))
-                    "Brush" -> context.startActivity(Intent(context, BrushActivity::class.java))
+                    "RuntimeShader" -> {
+                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+                            Toast.makeText(context, "required API 33", Toast.LENGTH_SHORT).show()
+                            return@Button
+                        }
+                        context.startActivity(Intent(context, ShaderRuntimeActivity::class.java))
+                    }
                     "Compose" -> context.startActivity(Intent(context, ComposeActivity::class.java))
                     "CodeLab" -> context.startActivity(Intent(context, CodeLabActivity::class.java))
                     "MySoothe" -> context.startActivity(Intent(context, MySootheActivity::class.java))
@@ -102,7 +109,7 @@ val buttonData = listOf(
     "SubjectSegmentation",
     "SegmentationSelfie",
     "Gallery",
-    "Brush",
+    "RuntimeShader",
     "Compose",
     "CodeLab",
     "MySoothe",
