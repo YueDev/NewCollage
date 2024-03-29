@@ -58,21 +58,28 @@ android {
 
 
 dependencies {
-
+    // android常用的一些官方库
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintlayout)
     implementation(libs.activity.ktx)
-
-    implementation(libs.glide)
-    implementation(libs.glide.compose)
-    implementation(libs.coil.compose)
-    implementation(libs.permissionx)
-
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.activity.compose)
+
+    //androidx的形状库
+    implementation(libs.androidx.graphics.shapes)
+
+    //hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+
+    //room
+    implementation(libs.room.runtime)
+    kapt(libs.room.compiler)
+
+    //compose
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
@@ -81,19 +88,26 @@ dependencies {
     implementation(libs.androidx.material3.size)
     implementation(libs.androidx.activity)
 
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
 
-    implementation(libs.room.runtime)
-    kapt(libs.room.compiler)
+    //glide and coil，图片加载
+    implementation(libs.glide)
+    implementation(libs.glide.compose)
+    implementation(libs.coil.compose)
 
+    //权限
+    implementation(libs.permissionx)
+
+    //mlkit的主题分割
     implementation(libs.segmentation.selfie)
     implementation(libs.play.services)
     implementation(libs.subject.segmentation)
 
+
+    //test
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
 
+    //debug
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }

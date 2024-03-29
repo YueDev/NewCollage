@@ -25,6 +25,8 @@ segmentation-selfie = "16.0.0-beta5"
 subject_segmentation = "16.0.0-beta1"
 play-services = "18.3.0"
 
+graphics-shapes = "1.0.0-alpha05"
+
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
@@ -63,6 +65,8 @@ segmentation-selfie = { group = "com.google.mlkit", name = "segmentation-selfie"
 
 play-services = { group = "com.google.android.gms", name = "play-services-base", version.ref = "play-services" }
 subject_segmentation = { group = "com.google.android.gms", name = "play-services-mlkit-subject-segmentation", version.ref = "subject_segmentation" }
+
+androidx-graphics-shapes = { group = "androidx.graphics", name = "graphics-shapes", version.ref = "graphics-shapes" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
