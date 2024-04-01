@@ -25,6 +25,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.newcollage.compose.ui.theme.NewCollageTheme
 import com.example.newcollage.view.FlowActivity
+import com.example.newcollage.view.PathActivity
+import com.example.newcollage.view.ShapeActivity
 import com.example.newcollage.view.hilt.ui.HiltActivity
 import com.permissionx.guolindev.PermissionX
 
@@ -97,6 +99,7 @@ fun MainHome(modifier: Modifier = Modifier) {
                     "Touch" -> context.startActivity(Intent(context, TouchActivity::class.java))
                     "Flow(XML)" -> context.startActivity(Intent(context, FlowActivity::class.java))
                     "Hilt(XML)" -> context.startActivity(Intent(context, HiltActivity::class.java))
+                    "Shape(XML)" -> context.startActivity(Intent(context, ShapeActivity::class.java))
                 }
             }) {
                 Text(text = it)
@@ -121,6 +124,8 @@ val buttonData = listOf(
     "Touch",
     "Flow(XML)",
     "Hilt(XML)",
+    "Path(XML)",
+    "Shape(XML)",
 )
 
 @Preview(showBackground = true)

@@ -68,9 +68,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.activity.compose)
 
-    //androidx的形状库
-    implementation(libs.androidx.graphics.shapes)
-
     //hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
@@ -93,6 +90,10 @@ dependencies {
     implementation(libs.glide)
     implementation(libs.glide.compose)
     implementation(libs.coil.compose)
+
+    //androidx shape
+    implementation(libs.androidx.graphics.shapes)
+    implementation(libs.androidx.graphics.path)
 
     //权限
     implementation(libs.permissionx)
