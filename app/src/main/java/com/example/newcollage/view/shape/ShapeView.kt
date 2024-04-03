@@ -53,6 +53,7 @@ class ShapeView : View {
         val startDegree = 0.0f
         val innerStartDegree = 36.0f
 
+
         //顺时针拿到10个点
         val point0 = radialToCartesian(radius, startDegree.toRadians())
         val innerPoint0 = radialToCartesian(innerRadius, innerStartDegree.toRadians())
