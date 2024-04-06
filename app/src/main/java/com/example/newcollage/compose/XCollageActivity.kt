@@ -83,7 +83,6 @@ private fun XCollageScreen(
 
     }
 
-
     XCollageView(modifier = modifier.onSizeChanged {
         sizeFlow.value = it
     })
