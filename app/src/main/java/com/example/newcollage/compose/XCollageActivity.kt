@@ -75,16 +75,14 @@ private fun XCollageScreen(
 ) {
     val context = LocalContext.current
 
-    val sizeFlow = remember {
-        MutableStateFlow(IntSize.Zero)
-    }
-
-    LaunchedEffect(uris) {
-
-    }
+    //1 根据uris加载可绘制的内容，Uri -> Bitmap -> ImageBitmap
+    //2 1结束后，拿到XCollageView的长宽比，然后初始化collage 得到最初的collage result
+    //3 每当xcollage的size改变，都collage一下
+    //4 如果uris改变，重复1-3
+    //5 加一个button，点击后re collage
 
     XCollageView(modifier = modifier.onSizeChanged {
-        sizeFlow.value = it
+
     })
 }
 
