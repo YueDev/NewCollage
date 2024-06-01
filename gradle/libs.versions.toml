@@ -1,32 +1,34 @@
 [versions]
-agp = "8.3.1"
+agp = "8.4.1"
 kotlin = "1.9.23"
-core-ktx = "1.12.0"
-appcompat = "1.6.1"
-material = "1.11.0"
+core-ktx = "1.13.1"
+appcompat = "1.7.0"
+material = "1.12.0"
 constraintlayout = "2.1.4"
-activity-ktx = "1.8.2"
+activity-ktx = "1.9.0"
 
-lifecycleRuntimeKtx = "2.7.0"
-activityCompose = "1.8.2"
-composeBom = "2024.03.00"
+lifecycleRuntimeKtx = "2.8.1"
+activityCompose = "1.9.0"
+composeBom = "2024.05.00"
 
 glide = "4.16.0"
 glide-compose = "1.0.0-beta01"
 coil-compose = "2.6.0"
 permissionx = "1.7.1"
 material3WindowSizeClass = "1.2.1"
-activity = "1.8.2"
+activity = "1.9.0"
 
 hilt = "2.51"
 room = "2.6.1"
 
 segmentation-selfie = "16.0.0-beta5"
 subject_segmentation = "16.0.0-beta1"
-play-services = "18.3.0"
+play-services = "18.5.0"
 
-graphics-shapes = "1.0.0-alpha05"
-graphics-path = "1.0.0"
+graphics-shapes = "1.0.0-beta01"
+graphics-path = "1.0.1"
+
+ksp = "2.0.0-1.0.21"
 
 
 [libraries]
@@ -34,7 +36,8 @@ core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activity-ktx" }
+androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activity-ktx" }
 
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycleRuntimeKtx" }
@@ -55,7 +58,6 @@ coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coi
 permissionx = { group = "com.guolindev.permissionx", name = "permissionx", version.ref = "permissionx" }
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
-androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
@@ -75,6 +77,7 @@ androidx-graphics-path = { group = "androidx.graphics", name = "graphics-path", 
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 hiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
 
 

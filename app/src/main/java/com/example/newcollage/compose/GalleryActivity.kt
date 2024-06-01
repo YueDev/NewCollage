@@ -88,7 +88,7 @@ fun GalleryScreen(modifier: Modifier = Modifier) {
         mutableStateOf(listOf())
     }
 
-    LaunchedEffect(key1 = Unit) {
+    LaunchedEffect(Unit) {
         GalleryRepository().loadMediaData(context).flowOn(Dispatchers.IO).collect { uriList ->
             val newImageList = uriList.map { uri ->
                 images.find { it.uri == uri } ?: ImageModel(uri)
@@ -109,7 +109,8 @@ fun GalleryScreen(modifier: Modifier = Modifier) {
                     XCollageActivity.startNewInstance(context, ArrayList(uris))
                 }) { Icon(imageVector = Icons.AutoMirrored.Filled.Send, contentDescription = null) }
             }
-        }, modifier = modifier
+        },
+        modifier = modifier
     ) { innerPadding ->
         Gallery(
             images = images, onClick = { uri ->
@@ -121,7 +122,8 @@ fun GalleryScreen(modifier: Modifier = Modifier) {
                 list.removeAt(index)
                 list.add(index, newImage)
                 images = list
-            }, modifier = modifier
+            },
+            modifier = modifier
                 .fillMaxSize()
                 .padding(innerPadding)
         )

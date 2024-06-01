@@ -31,11 +31,11 @@ class GalleryRepository {
 
         val contentResolver = context.contentResolver
 
-        //这里ContentObserver加了个main looper，保证了回调的时候走的是app的主线程
+        //这里ContentObserver的looper给了个main looper，保证了回调的时候走的是app的主线程
         //由于query需要io线程加载，因此launch一下才不会崩溃
-        //试了试loop给null，会走系统更新数据库的一个binder的线程回调，不用launcher即可，更简单了
 
-        //glide为什么写main looper呢？是不是要确保回调在本app中？
+        //looper如果给null，会走系统更新数据库的一个binder的线程回调，不用launcher即可，更简单了
+
         val contentObserver = object : ContentObserver(Handler(Looper.getMainLooper())) {
             override fun onChange(selfChange: Boolean) {
                 super.onChange(selfChange)
