@@ -9,7 +9,6 @@
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
     <application
-        android:name=".view.hilt.LogApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -19,12 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NewCollage"
         tools:targetApi="31">
-        <activity
-            android:name=".view.ShapeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".view.PathActivity"
-            android:exported="false" />
+
         <activity
             android:name=".compose.XCollageActivity"
             android:exported="false"
@@ -65,12 +59,7 @@
             android:exported="false"
             android:label="@string/title_activity_select_photo"
             android:theme="@style/Theme.NewCollage" />
-        <activity
-            android:name=".view.FlowActivity"
-            android:exported="false" />
-        <activity
-            android:name=".view.hilt.ui.HiltActivity"
-            android:exported="false" />
+
         <activity
             android:name=".compose.TestLayoutActivity"
             android:exported="false"

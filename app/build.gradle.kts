@@ -4,6 +4,8 @@ plugins {
     alias(libs.plugins.hiltAndroid)
     alias(libs.plugins.ksp)
     kotlin("kapt")
+    alias(libs.plugins.compose.compiler)
+
 }
 
 android {
