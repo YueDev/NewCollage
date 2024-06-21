@@ -74,6 +74,7 @@ fun MainHome(modifier: Modifier = Modifier) {
 
             Button(onClick = {
                 when (it) {
+                    "Test" -> context.startActivity(Intent(context, TestActivity::class.java))
                     "SubjectSegmentation" -> SelectPhotoActivity.startNewInstance(context, 1)
                     "SegmentationSelfie" -> SelectPhotoActivity.startNewInstance(context, 0)
                     "Gallery" -> context.startActivity(Intent(context, GalleryActivity::class.java))
@@ -102,6 +103,7 @@ fun MainHome(modifier: Modifier = Modifier) {
 }
 
 val buttonData = listOf(
+    "Test",
     "SubjectSegmentation",
     "SegmentationSelfie",
     "Gallery",

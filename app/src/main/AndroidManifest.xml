@@ -18,7 +18,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NewCollage"
         tools:targetApi="31">
-
+        <activity
+            android:name=".compose.TestActivity"
+            android:exported="false"
+            android:label="@string/title_activity_test"
+            android:theme="@style/Theme.NewCollage" />
         <activity
             android:name=".compose.XCollageActivity"
             android:exported="false"
@@ -59,7 +63,6 @@
             android:exported="false"
             android:label="@string/title_activity_select_photo"
             android:theme="@style/Theme.NewCollage" />
-
         <activity
             android:name=".compose.TestLayoutActivity"
             android:exported="false"
