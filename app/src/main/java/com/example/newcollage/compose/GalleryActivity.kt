@@ -42,6 +42,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -99,7 +100,11 @@ fun GalleryScreen(modifier: Modifier = Modifier) {
 
     Scaffold(
         floatingActionButton = {
-            val showFab = images.any { it.selected }
+
+            val showFab by remember {
+                derivedStateOf { images.any { it.selected } }
+            }
+
             AnimatedVisibility(
                 showFab, enter = scaleIn(initialScale = 0.25f), exit = scaleOut(targetScale = 0.25f) + fadeOut()
             ) {
