@@ -85,6 +85,7 @@ fun GestureImage(@DrawableRes drawableResId: Int, modifier: Modifier = Modifier)
                 scaleY = scale
             }
             .pointerInput(Unit) {
+
                 detectTransformGestures(true) { centroid, gesPan, gesZoom, gesRotation ->
 
                 }

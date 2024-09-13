@@ -4,21 +4,28 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.newcollage.compose.ui.theme.NewCollageTheme
+import kotlinx.coroutines.delay
 
 class RecompositionActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,26 +43,39 @@ class RecompositionActivity : ComponentActivity() {
 
 @Composable
 private fun RecompositionScreen(modifier: Modifier = Modifier) {
-    var num by remember { mutableIntStateOf(0) }
-
-    // Column是内联函数，直接用Column会导致RecompositionScreen重组
-    // 写一个不内联的MyColumn 可以再点击button的时候让RecompositionScreen不重组
-    // 但我感觉意义不大，因为这里num用by remember记住了 所以直接用Column就行
-    MyColumn(modifier = modifier) {
-        Text(text = "RecompositionTest")
-        Text(text = "Click num: $num")
-        Button(onClick = { num++ }) {
-            Text(text = "Click")
-        }
-    }
+    Recomposition2(modifier = modifier)
 }
 
 @Composable
-private fun MyColumn(
-    modifier: Modifier = Modifier,
-    content: @Composable ColumnScope.() -> Unit
-) {
-    Column(modifier = modifier, content = content)
+private fun Recomposition2(modifier: Modifier = Modifier) {
+
+}
+
+
+@Composable
+private fun Recomposition1(modifier: Modifier = Modifier) {
+
+    var color by remember { mutableStateOf(Color.White) }
+
+    LaunchedEffect(Unit) {
+        while (true) {
+            delay(100)
+            var r = (color.red - 0.1f).coerceIn(0.0f, 1.0f)
+            if (r == 0.0f) r = 1.0f
+            color = Color(red = r, color.green, color.blue, color.alpha)
+        }
+    }
+
+    //background 会重组，drawBehind不会 在绘制阶段一般不会重组
+    Column(modifier = Modifier) {
+        Text(text = "123", modifier = modifier
+            .size(64.dp)
+//            .background(color)
+            .drawBehind {
+                drawRect(color = color)
+            }
+        )
+    }
 }
 
 

@@ -13,7 +13,10 @@ import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Face
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -53,20 +56,31 @@ fun LayoutScreen(modifier: Modifier = Modifier) {
 @Composable
 private fun TestLayout2(modifier: Modifier = Modifier) {
     var isFade by remember { mutableStateOf(true) }
-    Button(
-        onClick = { isFade = !isFade },
-        modifier = modifier
-            .padding(16.dp)
-            .wrapContentSize()
-            .animateFade(isFade)
-    ) {
-        Text(text = "Click Me")
+
+    Column(modifier = modifier) {
+        Button(
+            onClick = { isFade = !isFade },
+            modifier = Modifier
+                .padding(16.dp)
+                .wrapContentSize()
+        ) {
+            Text(text = "Click Me")
+        }
+
+        Icon(
+            imageVector = Icons.Default.Face,
+            contentDescription = "",
+            modifier = Modifier
+                .size(64.dp)
+                .animateFade(isFade)
+        )
     }
 }
 
 //自定义modifier
 //带动画的enable，
 //用this then实现Modifier的链式调用
+//会频繁充足 眼
 @Composable
 fun Modifier.animateFade(enable: Boolean): Modifier {
     val alpha by animateFloatAsState(if (enable) 0.5f else 1.0f, label = "")

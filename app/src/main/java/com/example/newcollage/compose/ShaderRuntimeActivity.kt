@@ -15,7 +15,6 @@ import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.graphics.ShaderBrush
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.tooling.preview.Preview
@@ -52,12 +51,12 @@ fun MyCanvas(modifier: Modifier = Modifier) {
     }
 
     Canvas(modifier = modifier) {
-        drawIntoCanvas {
+//        drawIntoCanvas {
             colorShader.setFloatUniform("iResolution", size.width, size.height)
             colorShader.setFloatUniform("iTime", time.toFloat())
             time++
             drawCircle(brush = shaderBrush)
-        }
+//        }
     }
 }
 

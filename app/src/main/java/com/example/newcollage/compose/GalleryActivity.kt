@@ -10,6 +10,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandIn
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -58,8 +59,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastMap
+import com.bumptech.glide.integration.compose.CrossFade
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
+import com.bumptech.glide.integration.compose.Transition
 import com.example.newcollage.compose.ui.theme.NewCollageTheme
 import com.example.newcollage.repository.GalleryRepository
 import kotlinx.coroutines.Dispatchers
@@ -94,7 +97,9 @@ fun GalleryScreen(modifier: Modifier = Modifier) {
             val newImageList = uriList.map { uri ->
                 images.find { it.uri == uri } ?: ImageModel(uri)
             }
+
             images = newImageList
+
         }
     }
 
@@ -104,7 +109,6 @@ fun GalleryScreen(modifier: Modifier = Modifier) {
             val showFab by remember {
                 derivedStateOf { images.any { it.selected } }
             }
-
             AnimatedVisibility(
                 showFab, enter = scaleIn(initialScale = 0.25f), exit = scaleOut(targetScale = 0.25f) + fadeOut()
             ) {
@@ -149,7 +153,7 @@ private fun Gallery(
         modifier = modifier
     ) {
         items(images) { image ->
-            GalleryItem(image, click = onClick)
+            GalleryItem(image = image, click = onClick)
         }
     }
 }
@@ -165,6 +169,7 @@ private fun GalleryItem(image: ImageModel, click: (Uri) -> Unit, modifier: Modif
             model = image.uri,
             contentDescription = null,
             contentScale = ContentScale.Crop,
+//            transition = CrossFade,
             modifier = Modifier
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.primaryContainer)
