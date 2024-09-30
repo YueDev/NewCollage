@@ -1,30 +1,30 @@
 [versions]
-agp = "8.5.0"
-kotlin = "2.0.0"
+agp = "8.6.1"
+kotlin = "2.0.0"  #不能改为2.0.20 ksp会报错
 core-ktx = "1.13.1"
 appcompat = "1.7.0"
 material = "1.12.0"
 constraintlayout = "2.1.4"
-activity-ktx = "1.9.0"
+activity-ktx = "1.9.2"
 
-lifecycleRuntimeKtx = "2.8.3"
-activityCompose = "1.9.0"
-composeBom = "2024.06.00"
+lifecycleRuntimeKtx = "2.8.6"
+activityCompose = "1.9.2"
+composeBom = "2024.09.02"
 
 glide = "4.16.0"
 glide-compose = "1.0.0-beta01"
 coil-compose = "2.6.0"
 permissionx = "1.7.1"
-material3WindowSizeClass = "1.2.1"
-activity = "1.9.0"
+material3WindowSizeClass = "1.3.0"
+activity = "1.9.2"
 
 room = "2.6.1"
 
-segmentation-selfie = "16.0.0-beta5"
+segmentation-selfie = "16.0.0-beta6"
 subject_segmentation = "16.0.0-beta1"
 play-services = "18.5.0"
 
-graphics-shapes = "1.0.0-beta01"
+graphics-shapes = "1.0.1"
 graphics-path = "1.0.1"
 
 ksp = "2.0.0-1.0.21"
