@@ -2,7 +2,6 @@ package com.example.newcollage.compose
 
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -11,12 +10,10 @@ import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.expandIn
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
-import androidx.compose.animation.shrinkOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -25,9 +22,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
@@ -36,10 +36,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SearchBar
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.Stable
@@ -51,6 +55,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
@@ -58,16 +63,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.util.fastMap
-import com.bumptech.glide.integration.compose.CrossFade
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
-import com.bumptech.glide.integration.compose.Transition
 import com.example.newcollage.compose.ui.theme.NewCollageTheme
 import com.example.newcollage.repository.GalleryRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOn
-import java.util.ArrayList
 
 //相册 支持多选
 class GalleryActivity : ComponentActivity() {
@@ -83,6 +84,7 @@ class GalleryActivity : ComponentActivity() {
 }
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GalleryScreen(modifier: Modifier = Modifier) {
 
@@ -97,9 +99,7 @@ fun GalleryScreen(modifier: Modifier = Modifier) {
             val newImageList = uriList.map { uri ->
                 images.find { it.uri == uri } ?: ImageModel(uri)
             }
-
             images = newImageList
-
         }
     }
 
@@ -110,7 +110,9 @@ fun GalleryScreen(modifier: Modifier = Modifier) {
                 derivedStateOf { images.any { it.selected } }
             }
             AnimatedVisibility(
-                showFab, enter = scaleIn(initialScale = 0.25f), exit = scaleOut(targetScale = 0.25f) + fadeOut()
+                showFab,
+                enter = scaleIn(initialScale = 0.25f),
+                exit = scaleOut(targetScale = 0.25f) + fadeOut()
             ) {
                 FloatingActionButton(onClick = {
                     val uris = images.filter { it.selected }.map { it.uri }
@@ -121,35 +123,99 @@ fun GalleryScreen(modifier: Modifier = Modifier) {
         },
         modifier = modifier
     ) { innerPadding ->
-        Gallery(
-            images = images, onClick = { uri ->
-                //点击图片 修改images
-                val list = images.toMutableList()
-                val index = list.indexOfFirst { it.uri == uri }
-                val selectedImage = list.getOrNull(index) ?: return@Gallery
-                val newImage = selectedImage.copy(selected = !selectedImage.selected)
-                list.removeAt(index)
-                list.add(index, newImage)
-                images = list
-            },
-            modifier = modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-        )
+
+        val state = rememberLazyGridState()
+        //是否显示遮照
+        val showMask by remember {
+            derivedStateOf {
+                state.firstVisibleItemIndex > 0 || state.firstVisibleItemScrollOffset > 48
+            }
+        }
+
+
+        Box(modifier = modifier.padding(innerPadding)) {
+
+            //相册
+            Gallery(
+                modifier = Modifier.fillMaxSize(),
+                state = state,
+                images = images,
+                contentPadding = PaddingValues(start = 2.dp, end = 2.dp, top = 128.dp, bottom = 2.dp),
+                onClick = { uri ->
+                    //点击图片 修改images
+                    val list = images.toMutableList()
+                    val index = list.indexOfFirst { it.uri == uri }
+                    val selectedImage = list.getOrNull(index) ?: return@Gallery
+                    val newImage = selectedImage.copy(selected = !selectedImage.selected)
+                    list.removeAt(index)
+                    list.add(index, newImage)
+                    images = list
+                })
+
+            //遮照
+            AnimatedVisibility(
+                visible = showMask,
+                enter = fadeIn(animationSpec = tween(700)),
+                exit = fadeOut(animationSpec = tween(700))
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(192.dp)
+                        .background(
+                            brush = Brush.verticalGradient(
+                                colors = listOf(
+                                    Color.Black.copy(alpha = 0.75f),
+                                    Color.Black.copy(alpha = 0.0f)
+                                )
+                            )
+                        )
+                        .align(Alignment.TopCenter)
+                )
+            }
+
+            var queryString by remember {
+                mutableStateOf("")
+            }
+
+            //search bar
+            SearchBar(
+                query = queryString,
+                onQueryChange = { queryString = it },
+                onSearch = {},
+                active = false,
+                onActiveChange = {},
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        contentDescription = "Search Bar",
+                    )
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 16.dp, end = 16.dp)
+            ) {
+            }
+        }
+
     }
 }
 
 
 @Composable
 private fun Gallery(
-    images: List<ImageModel>, onClick: (Uri) -> Unit, modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    images: List<ImageModel>,
+    state: LazyGridState = rememberLazyGridState(),
+    contentPadding: PaddingValues = PaddingValues(2.dp),
+    onClick: (Uri) -> Unit,
 ) {
     LazyVerticalGrid(
+        state = state,
         columns = GridCells.Adaptive(112.dp),
         horizontalArrangement = Arrangement.spacedBy(2.dp),
         verticalArrangement = Arrangement.spacedBy(2.dp),
-        contentPadding = PaddingValues(2.dp),
-        state = rememberLazyGridState(),
+        contentPadding = contentPadding,
         modifier = modifier
     ) {
         items(images) { image ->
@@ -172,7 +238,7 @@ private fun GalleryItem(image: ImageModel, click: (Uri) -> Unit, modifier: Modif
 //            transition = CrossFade,
             modifier = Modifier
                 .fillMaxSize()
-                .background(MaterialTheme.colorScheme.primaryContainer)
+//                .background(MaterialTheme.colorScheme.primaryContainer)
                 .animateSelect(image.selected)
         )
         AnimatedVisibility(image.selected) {
@@ -182,7 +248,7 @@ private fun GalleryItem(image: ImageModel, click: (Uri) -> Unit, modifier: Modif
                 contentDescription = "",
                 modifier = Modifier
                     .padding(start = 4.dp, top = 4.dp)
-                    .border(4.dp, color = MaterialTheme.colorScheme.primaryContainer, shape = CircleShape)
+                    .border(4.dp, color = MaterialTheme.colorScheme.background, shape = CircleShape)
                     .padding(4.dp)
                     .size(24.dp)
                     .clip(CircleShape)

@@ -74,7 +74,7 @@ class MySootheActivity : ComponentActivity() {
 }
 
 @Composable
-fun SearchBar(
+private fun MySearchBar(
     modifier: Modifier = Modifier
 ) {
     TextField(
@@ -215,7 +215,7 @@ fun HomeSection(
 fun HomeScreen(modifier: Modifier = Modifier) {
     Column(modifier = modifier.verticalScroll(rememberScrollState())) {
         Spacer(modifier = Modifier.height(16.dp))
-        SearchBar(modifier = Modifier.padding(horizontal = 16.dp))
+        MySearchBar(modifier = Modifier.padding(horizontal = 16.dp))
         HomeSection(title = R.string.align_your_body) {
             AlignYourBodyRow()
         }
@@ -372,7 +372,7 @@ private data class DrawableStringPair(
 @Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)
 @Composable
 fun SearchBarPreview() {
-    NewCollageTheme { SearchBar(Modifier.padding(8.dp)) }
+    NewCollageTheme { MySearchBar(Modifier.padding(8.dp)) }
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFFF5F0EE)

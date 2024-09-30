@@ -1,68 +1,15 @@
 package com.example.newcollage.compose
 
-import android.graphics.Path.FillType
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.PathFillType
-import androidx.compose.ui.graphics.PathMeasure
-import androidx.compose.ui.graphics.PathOperation
-import androidx.compose.ui.graphics.StrokeCap
-import androidx.compose.ui.graphics.StrokeJoin
-import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.graphics.drawscope.DrawStyle
 import androidx.compose.ui.graphics.drawscope.Fill
-import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.newcollage.compose.ui.theme.NewCollageTheme
-
-class PathAddActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            NewCollageTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    PathAddComposable(modifier = Modifier.padding(innerPadding))
-                }
-            }
-        }
-    }
-}
-
-
-private val path2 = Path().apply {
-    //逆时针
-    moveTo(400f, 400f)
-    lineTo(400f, 600f)
-    lineTo(600f, 600f)
-    lineTo(600f, 400f)
-    close()
-}
-
-
-//顺时针
-private val path1 = Path().apply {
-    moveTo(200f, 200f)
-    lineTo(800f, 200f)
-    lineTo(800f, 800f)
-    lineTo(200f, 800f)
-    close()
-
-}
 
 
 //addPath关于path的方向：
@@ -82,11 +29,6 @@ private val path1 = Path().apply {
 @Composable
 fun PathAddComposable(modifier: Modifier = Modifier) {
 
-
-//    Canvas(modifier = modifier.fillMaxSize()) {
-//        drawPath(path = path1, color = Color.Blue.copy(alpha = 0.35f), style = Fill)
-//    }
-
     //PathFillType 好像只对系统的那几个path管用，我自己写的path1和path2不太行
     Canvas(modifier = modifier.fillMaxSize()) {
         val path = Path().apply {
@@ -98,7 +40,6 @@ fun PathAddComposable(modifier: Modifier = Modifier) {
             fillType = PathFillType.NonZero
         }
         drawPath(path = path, color = Color.Red.copy(alpha = 0.35f), style = Fill)
-
     }
 
 }
