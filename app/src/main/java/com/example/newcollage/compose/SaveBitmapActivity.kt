@@ -51,7 +51,6 @@ class SaveBitmapActivity : ComponentActivity() {
 
 @Composable
 fun SaveBitmapScreen(@DrawableRes id: Int, modifier: Modifier = Modifier) {
-    Build.CPU_ABI2
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
 

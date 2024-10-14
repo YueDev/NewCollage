@@ -1,24 +1,24 @@
 package com.example.newcollage.util
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.createChooser
 import android.graphics.Bitmap
 import android.graphics.Matrix
-import android.graphics.drawable.BitmapDrawable
 import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Environment
 import androidx.core.content.ContextCompat.startActivity
-import coil.ImageLoader
-import coil.request.ImageRequest
-import coil.size.Scale
+import coil3.ImageLoader
+import coil3.request.ImageRequest
+import coil3.request.allowConversionToBitmap
+import coil3.request.allowHardware
+import coil3.size.Scale
+import coil3.toBitmap
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.FutureTarget
 import kotlinx.coroutines.suspendCancellableCoroutine
-import okhttp3.internal.format
 import java.io.File
 import kotlin.coroutines.resume
 
@@ -75,7 +75,7 @@ suspend fun getImageBitmap(context: Context, uri: Uri): Bitmap? {
         .allowHardware(false)
         .build()
     val imageResult = imageLoader.execute(imageRequest)
-    return (imageResult.drawable as? BitmapDrawable)?.bitmap
+    return imageResult.image?.toBitmap()
 }
 
 suspend fun getImageBitmap(context: Context, drawableResId: Int): Bitmap? {
@@ -88,7 +88,7 @@ suspend fun getImageBitmap(context: Context, drawableResId: Int): Bitmap? {
         .allowHardware(false)
         .build()
     val imageResult = imageLoader.execute(imageRequest)
-    return (imageResult.drawable as? BitmapDrawable)?.bitmap
+    return imageResult.image?.toBitmap()
 }
 
 

@@ -66,7 +66,7 @@ object BrushViewModel {
         }
         newPath.lineTo(x, y)
         val pathList = paths.value.toMutableList()
-        pathList.removeLast()
+        pathList.removeAt(pathList.lastIndex)
         pathList.add(newPath)
         _paths.value = pathList
     }

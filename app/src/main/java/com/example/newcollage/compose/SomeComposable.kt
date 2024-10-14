@@ -22,7 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 
 //又看了看，path又个filltype，默认是非零填充，是上边这个效果
 //还有一种常用的是奇偶填充，这个应该是忽略各种方向的
-//还是挺麻烦的，Path.combine算了
+//还是挺麻烦的，用Path.combine算了
 
 // 结论：android compose合并两个path，请使用Path.combine
 // android view的path没试，算了吧 不管了。还有人写android view？

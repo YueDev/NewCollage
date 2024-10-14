@@ -75,10 +75,7 @@ private fun SelectPhotoScreen(
     val context = LocalContext.current
 
     Gallery(uris = uris, modifier = modifier) {
-        when (dst) {
-            0 -> SegmentActivity.startNewInstance(context, it)
-            1 -> SubjectSegmentationActivity.startNewInstance(context, it)
-        }
+        SubjectSegmentationActivity.startNewInstance(context, it)
     }
 }
 

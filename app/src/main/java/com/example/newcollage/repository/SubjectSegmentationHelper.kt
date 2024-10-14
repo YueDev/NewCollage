@@ -6,7 +6,6 @@ import android.net.Uri
 import android.util.Log
 import androidx.annotation.ColorInt
 import com.example.newcollage.util.getImageBitmap
-import com.example.newcollage.viewmodel.MyResult
 import com.google.android.gms.common.moduleinstall.InstallStatusListener
 import com.google.android.gms.common.moduleinstall.ModuleInstall
 import com.google.android.gms.common.moduleinstall.ModuleInstallRequest
@@ -27,6 +26,11 @@ import java.nio.FloatBuffer
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
+sealed class MyResult<T>(val data: T? = null, val errorMessage: String? = null) {
+    class Success<T>(data: T): MyResult<T>(data = data)
+    class Loading<T>: MyResult<T>()
+    class Failed<T>(errorMessage: String): MyResult<T>(errorMessage = errorMessage)
+}
 
 object SubjectSegmentationHelper {
 

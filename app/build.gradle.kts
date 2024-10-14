@@ -31,11 +31,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
 
     buildFeatures {
@@ -85,7 +85,7 @@ dependencies {
     implementation(libs.androidx.activity.compose)
 
     //glide and coil，图片加载
-    implementation(libs.glide)
+//    implementation(libs.glide)
     implementation(libs.glide.compose)
     implementation(libs.coil.compose)
 
@@ -97,7 +97,6 @@ dependencies {
     implementation(libs.permissionx)
 
     //mlkit的主题分割
-    implementation(libs.segmentation.selfie)
     implementation(libs.play.services)
     implementation(libs.subject.segmentation)
 

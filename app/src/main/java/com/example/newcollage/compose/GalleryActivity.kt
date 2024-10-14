@@ -62,6 +62,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
+import coil3.request.ImageRequest
+import com.bumptech.glide.Glide
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.newcollage.compose.ui.theme.NewCollageTheme
@@ -234,12 +237,18 @@ private fun GalleryItem(image: ImageModel, click: (Uri) -> Unit, modifier: Modif
             model = image.uri,
             contentDescription = null,
             contentScale = ContentScale.Crop,
-//            transition = CrossFade,
             modifier = Modifier
                 .fillMaxSize()
-//                .background(MaterialTheme.colorScheme.primaryContainer)
                 .animateSelect(image.selected)
         )
+//        AsyncImage(
+//            model = image.uri,
+//            contentDescription = null,
+//            contentScale = ContentScale.Crop,
+//            modifier = Modifier
+//                .fillMaxSize()
+//                .animateSelect(image.selected)
+//        )
         AnimatedVisibility(image.selected) {
             Icon(
                 imageVector = Icons.Filled.Check,

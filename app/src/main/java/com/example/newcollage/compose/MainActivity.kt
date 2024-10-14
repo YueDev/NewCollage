@@ -77,7 +77,6 @@ fun MainHome(modifier: Modifier = Modifier) {
                     "Test" -> context.startActivity(Intent(context, TestActivity::class.java))
                     "Brush" -> context.startActivity(Intent(context, BrushActivity::class.java))
                     "SubjectSegmentation" -> SelectPhotoActivity.startNewInstance(context, 1)
-                    "SegmentationSelfie" -> SelectPhotoActivity.startNewInstance(context, 0)
                     "Gallery" -> context.startActivity(Intent(context, GalleryActivity::class.java))
                     "RuntimeShader" -> {
                         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
@@ -107,7 +106,6 @@ val buttonData = listOf(
     "Test",
     "Brush",
     "SubjectSegmentation",
-    "SegmentationSelfie",
     "Gallery",
     "RuntimeShader",
     "Compose",
