@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -32,9 +33,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.newcollage.R
 import com.example.newcollage.compose.ui.theme.NewCollageTheme
+import com.example.newcollage.util.shareImage
 
 class ComposeActivity : ComponentActivity() {
 
@@ -99,17 +102,20 @@ fun MessageCard(msg: Message, click: (Boolean) -> Unit) {
             )
 
             Spacer(modifier = Modifier.height(4.dp))
+            
 
             Surface(
-                color = surfaceColor,
+//                color = surfaceColor,
                 modifier = Modifier
+                    .height(if (msg.isExpand) Dp.Unspecified else 36.dp)
                     .animateContentSize()
-                    .clickable { click.invoke(msg.isExpand.not()) },
+                    .clickable(indication = null, interactionSource = null) {
+                        click.invoke(msg.isExpand.not())
+                    },
                 shape = MaterialTheme.shapes.medium,
                 tonalElevation = 4.dp
             ) {
                 Text(
-                    maxLines = if (msg.isExpand) Int.MAX_VALUE else 1,
                     text = msg.body,
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.padding(8.dp)

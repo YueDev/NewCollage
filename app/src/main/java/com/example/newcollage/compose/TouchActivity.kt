@@ -8,10 +8,13 @@ import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTransformGestures
+import androidx.compose.foundation.gestures.transformable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -60,9 +63,12 @@ fun Touch2(modifier: Modifier = Modifier) {
     Box(modifier = modifier) {
         GestureImage(
             drawableResId = ImageRepository.imageResIds.random(),
-            modifier = Modifier
-                .size(240.dp)
-                .background(MaterialTheme.colorScheme.primaryContainer)
+            modifier = Modifier.width(192.dp)
+        )
+
+        GestureImage(
+            drawableResId = ImageRepository.imageResIds.random(),
+            modifier = Modifier.width(192.dp)
         )
     }
 }
@@ -74,6 +80,7 @@ fun GestureImage(@DrawableRes drawableResId: Int, modifier: Modifier = Modifier)
     var translation by remember { mutableStateOf(Offset.Zero) }
     var scale by remember { mutableFloatStateOf(1f) }
     var rotation by remember { mutableFloatStateOf(0f) }
+    var origin by remember { mutableStateOf(TransformOrigin(0.5f, 0.5f)) }
     Image(
         painter = painterResource(id = drawableResId),
         contentDescription = "",
@@ -83,11 +90,12 @@ fun GestureImage(@DrawableRes drawableResId: Int, modifier: Modifier = Modifier)
                 translationY = translation.y
                 scaleX = scale
                 scaleY = scale
+                transformOrigin = origin
             }
             .pointerInput(Unit) {
-
-                detectTransformGestures(true) { centroid, gesPan, gesZoom, gesRotation ->
-
+                detectTransformGestures { centroid, gesPan, gesZoom, gesRotation ->
+                    scale *= gesZoom
+                    translation += gesPan * scale
                 }
             }
     )

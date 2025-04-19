@@ -62,20 +62,16 @@ class GalleryRepository {
     // 查询媒体库
     @WorkerThread
     private fun query(contentResolver: ContentResolver): List<Uri> {
-        // Glide自带的工具：检查是否是后台线程，否的话抛出异常
-        Preconditions.checkArgument(
-            Util.isOnBackgroundThread(),
+        //主线程执行直接报错就行
+        require(Util.isOnBackgroundThread()) {
             "Can only query from a background thread"
-        )
+        }
+
         val data = mutableListOf<Uri>()
 
-        val cursor = contentResolver.query(
-            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-            projection,
-            selection,
-            null,
-            orderBy
-        ) ?: return data
+        val cursor =
+            contentResolver.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection, selection, null, orderBy)
+                ?: return data
 
         cursor.use {
             val idIndex = it.getColumnIndexOrThrow(MediaStore.Images.Media._ID)

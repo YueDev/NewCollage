@@ -71,4 +71,5 @@
     <string name="title_activity_xcollage">XCollageActivity</string>
     <string name="title_activity_test">TestActivity</string>
     <string name="title_activity_brush">BrushActivity</string>
+    <string name="title_activity_timeline">TimelineActivity</string>
 </resources>

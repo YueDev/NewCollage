@@ -8,12 +8,12 @@ plugins {
 
 android {
     namespace = "com.example.newcollage"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.newcollage"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
         vectorDrawables {
@@ -77,6 +77,7 @@ dependencies {
 
     //compose
     implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
@@ -106,7 +107,7 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
 
     //debug
-    debugImplementation(libs.androidx.ui.tooling)
+//    debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }
 

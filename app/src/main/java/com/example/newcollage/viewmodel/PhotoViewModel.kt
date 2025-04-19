@@ -7,8 +7,10 @@ import androidx.lifecycle.viewModelScope
 import com.example.newcollage.repository.GalleryRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class PhotoViewModel(application: Application) : AndroidViewModel(application) {
@@ -20,7 +22,15 @@ class PhotoViewModel(application: Application) : AndroidViewModel(application) {
     // 能节省从repository请求数据
     // 更多关于stateflow的：
     // https://amitshekhar.me/blog/stateflow-and-sharedflow
-//    val uris = galleryRepository.loadMediaData(application).flowOn(Dispatchers.IO)
+
+
+
+    
+    val uris = galleryRepository.loadMediaData(application).flowOn(Dispatchers.IO).stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000L),
+        emptyList()
+    )
 
     private val _urisStateFlow: MutableStateFlow<List<Uri>> = MutableStateFlow(listOf())
     val urisStateFlow: StateFlow<List<Uri>> = _urisStateFlow

@@ -14,6 +14,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -116,6 +118,7 @@ private fun SubjectSegmentationView(
 
 @Composable
 fun SegmentView(segmentResult: MyResult<Bitmap>, modifier: Modifier = Modifier) {
+    
     Column(modifier = modifier) {
         when (segmentResult) {
             is MyResult.Failed -> {
